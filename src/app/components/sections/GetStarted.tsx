@@ -13,7 +13,7 @@ import RingOne from "../../assets/ring1.png"
 
 export function GetStartedSection() {
   return (
-    <Container>
+    <Container id="início">
       <JewelryShowcase showcaseUrl={RingOne} />
 
       <SectionTitle>Descubra As Joias Excepcionais Conosco</SectionTitle>
@@ -43,7 +43,7 @@ const Container = styled.section`
 const SectionTitle = styled(Text)`
   font-family: var(--font-noto_serif_jp);
   font-size: 65px;
-  width: 43%;
+  width: 53%;
 `
 
 const CounterTitle = styled(Text)`
@@ -67,7 +67,7 @@ const GetStartedButton = styled(Button).attrs({ as: Link })`
   padding: 12px 3%;
 `
 
-const PlayVideoText = styled(Text)`
+const PlayVideoText = styled(Text).attrs({ as: "button" })`
   font-weight: 500;
   font-size: 18px;
 `

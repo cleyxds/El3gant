@@ -51,6 +51,10 @@ const FRow = styled.div`
 const HeaderContainer = styled(FRow).attrs({ as: "header" })`
   padding: 16px 64px;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  backdrop-filter: blur(8px);
 `
 
 const LogoContainer = styled(FRow)`

@@ -15,15 +15,15 @@ const noto_serif_jp = Noto_Serif_JP({
   weight: ["900"],
 })
 
-import StyledComponentsRegistry from "./lib/registry"
+import { DataRoot } from "./components/DataRoot"
 
 import "./index.css"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Jewelry App",
+  title: "3legant3",
   description:
-    "Jewelry App é um aplicativo de comércio eletrônico que vende joias online",
+    "3legant3 é um aplicativo de comércio eletrônico que vende joias online",
 }
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${poppins.variable} ${noto_serif_jp.variable}`}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <DataRoot>{children}</DataRoot>
       </body>
     </html>
   )

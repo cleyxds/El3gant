@@ -18,7 +18,7 @@ function Socials() {
     const ALT = `Social: ${SOCIAL_NAME}`
 
     return (
-      <a target="_blank" href={SOCIAL_URL}>
+      <a key={SOCIAL_NAME} target="_blank" href={SOCIAL_URL}>
         <Image src={Logo} alt={ALT} width={24} height={24} />
       </a>
     )

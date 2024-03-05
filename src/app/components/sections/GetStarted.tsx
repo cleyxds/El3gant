@@ -8,6 +8,7 @@ import { Text } from "@/app/ui/text"
 import { Button } from "@/app/ui/button"
 
 import { JewelryShowcase } from "../JewelryShowcase"
+import { PlayVideo } from "../PlayVideo"
 
 import RingOne from "../../assets/ring1.png"
 
@@ -26,7 +27,7 @@ export function GetStartedSection() {
       <Actions>
         <GetStartedButton href="/getstarted">Começar</GetStartedButton>
 
-        <PlayVideoText>Ver vídeo</PlayVideoText>
+        <PlayVideo />
       </Actions>
     </Container>
   )
@@ -65,9 +66,4 @@ const GetStartedButton = styled(Button).attrs({ as: Link })`
   font-size: 20px;
   text-transform: uppercase;
   padding: 12px 3%;
-`
-
-const PlayVideoText = styled(Text).attrs({ as: "button" })`
-  font-weight: 500;
-  font-size: 18px;
 `

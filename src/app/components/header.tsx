@@ -5,15 +5,21 @@ import Image from "next/image"
 
 import styled from "styled-components"
 
+import { useContext } from "react"
+import { UserContext } from "../contexts/UserContext"
+
 import { Text } from "../ui/text"
 import { Button } from "../ui/button"
 
 import Logo from "../assets/Logo.png"
+import Lines from "../assets/lines.png"
 
 export function Header() {
+  const { authenticateUser, isAuthenticated, user } = useContext(UserContext)
+
   return (
     <HeaderContainer>
-      <LogoContainer>
+      <LogoContainer as={Link} href="/">
         <Image src={Logo} alt="Jewerly App Logo" />
         <Text as="h1">Jewell</Text>
       </LogoContainer>
@@ -26,15 +32,28 @@ export function Header() {
 
           <OptionLink href="#joias">Jóias</OptionLink>
 
-          <OptionLink href="/catalogo">Catálogo</OptionLink>
+          <OptionLink href="/catalog">Catálogo</OptionLink>
 
           <Text as="button">
-            <Image src={Logo} alt="Jewerly App Logo" width={16} height={16} />
+            <Image
+              src={Lines}
+              alt="Navigation: Options"
+              width={16}
+              height={16}
+            />
           </Text>
         </OptionsContainer>
 
         <LogoContainer>
-          <LogInButton>Log in</LogInButton>
+          {!isAuthenticated ? (
+            <LogInButton onClick={() => authenticateUser?.("Cleyson")}>
+              Log in
+            </LogInButton>
+          ) : (
+            <LogInButton href="/cart" as={Link}>
+              {user?.name}
+            </LogInButton>
+          )}
 
           <GetStartedButton href="/getstarted">Começar</GetStartedButton>
         </LogoContainer>

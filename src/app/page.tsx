@@ -1,6 +1,6 @@
 import { Header } from "./components/header"
 import { GetStartedSection } from "./components/sections/GetStarted"
-import { SellCard } from "./components/SellCard"
+import { JewelryCard } from "./components/JewelryCard"
 
 export default function Home() {
   return (
@@ -9,9 +9,9 @@ export default function Home() {
 
       <GetStartedSection />
 
-      <SellCard />
-      <SellCard type="RIGHT-LEFT" />
-      <SellCard type="RIGHT-LEFT" />
+      <JewelryCard />
+      <JewelryCard type="RIGHT-LEFT" />
+      <JewelryCard type="RIGHT-LEFT" />
     </main>
   )
 }

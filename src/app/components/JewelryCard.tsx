@@ -2,26 +2,40 @@
 
 import Image from "next/image"
 
+import { useContext } from "react"
+
 import styled from "styled-components"
 
-import { Text } from "../ui/text"
+import { CartContext } from "../contexts/CartContext"
 
-import RingTwo from "../assets/ring2.png"
+import { Text } from "../ui/text"
 import { Button } from "../ui/button"
 
+import { generateId } from "../lib/generateId"
+
+import RingTwo from "../assets/ring2.png"
+
 type CardType = "LEFT-RIGHT" | "RIGHT-LEFT"
-type SellCard = {
+type JewelryCard = {
   type?: CardType
 }
-export function SellCard({ type = "LEFT-RIGHT" }: SellCard) {
+
+export function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
   if (type !== "LEFT-RIGHT") return null
+
+  const { addToCart } = useContext(CartContext)
+
+  const JEWELRY_ID = generateId()
+  const JEWELRY_NAME = "Pikup: Anel de designer em prata esterlina"
+  const JEWELRY_PRICE = "549.29"
+  const NUMBER_JEWELRY_PRICE = Number(JEWELRY_PRICE)
 
   return (
     <Container id="joias">
       <Image src={RingTwo} alt="Jewelry: Ring 2" />
 
       <InformationContainer>
-        <CardTitle>Pikup: Anel de designer em prata esterlina</CardTitle>
+        <CardTitle>{JEWELRY_NAME}</CardTitle>
 
         <CounterTitle>
           Lorem ipsum dolor sit amet. Qui consequatur sint 33 voluptatem officia
@@ -31,9 +45,20 @@ export function SellCard({ type = "LEFT-RIGHT" }: SellCard) {
         </CounterTitle>
 
         <Actions>
-          <GetStartedButton>Adicionar ao carrinho</GetStartedButton>
+          <GetStartedButton
+            onClick={() =>
+              addToCart({
+                id: JEWELRY_ID,
+                name: JEWELRY_NAME,
+                price: NUMBER_JEWELRY_PRICE,
+                image: RingTwo,
+              })
+            }
+          >
+            Adicionar ao carrinho
+          </GetStartedButton>
 
-          <PlayVideoText>R$ 549,29</PlayVideoText>
+          <PlayVideoText>R$ {JEWELRY_PRICE}</PlayVideoText>
         </Actions>
       </InformationContainer>
     </Container>

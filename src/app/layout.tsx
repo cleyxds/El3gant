@@ -1,29 +1,16 @@
 import type { Metadata } from "next"
 
-import { Poppins, Noto_Serif_JP } from "next/font/google"
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter"
+import { ThemeProvider } from "@mui/material/styles"
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-})
+import { APP_NAME } from "@/config"
+import theme from "../theme"
 
-const noto_serif_jp = Noto_Serif_JP({
-  subsets: ["latin"],
-  variable: "--font-noto_serif_jp",
-  weight: ["900"],
-})
-
-import { DataRoot } from "./components/DataRoot"
-
-import "./index.css"
-import "./globals.css"
+import "./page.css"
 
 export const metadata: Metadata = {
-  title: "3legant3",
-  description:
-    "3legant3 é um aplicativo de comércio eletrônico que vende joias online",
+  title: APP_NAME,
+  description: `${APP_NAME} é um aplicativo de comércio eletrônico de venda de joias online`,
 }
 
 export default function RootLayout({
@@ -32,9 +19,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${poppins.variable} ${noto_serif_jp.variable}`}>
-        <DataRoot>{children}</DataRoot>
+    <html lang="en">
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   )

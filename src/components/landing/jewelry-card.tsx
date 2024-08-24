@@ -6,14 +6,14 @@ import { useContext } from "react"
 
 import styled from "styled-components"
 
-import { CartContext } from "../contexts/CartContext"
+import { CartContext } from "../../contexts/CartContext"
 
-import { Text } from "../ui/text"
-import { Button } from "../ui/button"
+import { Text } from "../../ui/text"
+import { Button } from "../../ui/button"
 
-import { generateId } from "../lib/generateId"
+import { generateId } from "../../lib/generateId"
 
-import RingTwo from "../assets/ring2.png"
+import RingTwo from "../../assets/ring2.png"
 
 type CardType = "LEFT-RIGHT" | "RIGHT-LEFT"
 type JewelryCard = {

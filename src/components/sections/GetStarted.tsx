@@ -4,8 +4,8 @@ import styled from "styled-components"
 
 import Link from "next/link"
 
-import { Text } from "@/app/ui/text"
-import { Button } from "@/app/ui/button"
+import { Text } from "@/ui/text"
+import { Button } from "@/ui/button"
 
 import { JewelryShowcase } from "../JewelryShowcase"
 import { PlayVideo } from "../PlayVideo"

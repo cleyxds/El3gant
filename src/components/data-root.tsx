@@ -5,7 +5,7 @@ import { CartContextProvider } from "../contexts/CartContext"
 
 import StyledComponentsRegistry from "../lib/registry"
 
-export function DataRoot({ children }: { children: ReactNode }) {
+export default function DataRoot({ children }: { children: ReactNode }) {
   return (
     <StyledComponentsRegistry>
       <UserContextProvider>

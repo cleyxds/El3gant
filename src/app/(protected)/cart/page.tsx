@@ -4,11 +4,10 @@ import Image from "next/image"
 
 import { useContext, useState } from "react"
 
-import styled from "styled-components"
+import { Text } from "../../../ui/text"
 
-import { Text } from "../ui/text"
-
-import { CartContext } from "../contexts/CartContext"
+import { CartContext } from "../../../contexts/CartContext"
+import { styled } from "@mui/material"
 
 function Counter() {
   const [quantity, setQuantity] = useState(0)
@@ -37,14 +36,14 @@ function Counter() {
   )
 }
 
-const CounterContainer = styled.div`
+const CounterContainer = styled("div")`
   display: flex;
   align-items: center;
   gap: 4px;
   border: 0.8px solid #ffffff;
 `
 
-const CounterButton = styled.button`
+const CounterButton = styled("button")`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,14 +98,14 @@ export default function CartPage() {
   )
 }
 
-const Container = styled.main`
+const Container = styled("main")`
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 16px 64px;
 `
 
-const CartCardContainer = styled.div`
+const CartCardContainer = styled("div")`
   padding: 8px 12px;
   border: 0.8px solid #ffffff;
   display: flex;
@@ -120,7 +119,7 @@ const CartItemImage = styled(Image)`
   width: 64px;
 `
 
-const PriceAndCounter = styled.div`
+const PriceAndCounter = styled("div")`
   display: flex;
   align-items: center;
   gap: 32px;

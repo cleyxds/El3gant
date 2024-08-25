@@ -1,15 +1,8 @@
-"use client"
-
 import Image from "next/image"
 
-import { useContext } from "react"
-
-import styled from "styled-components"
-
-import { CartContext } from "../../contexts/CartContext"
-
-import { Text } from "../../ui/text"
-import { Button } from "../../ui/button"
+import Stack from "@mui/material/Stack"
+import Button from "@mui/material/Button"
+import Typography from "@mui/material/Typography"
 
 import { generateId } from "../../lib/generateId"
 
@@ -20,10 +13,8 @@ type JewelryCard = {
   type?: CardType
 }
 
-export function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
+export default function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
   if (type !== "LEFT-RIGHT") return null
-
-  const { addToCart } = useContext(CartContext)
 
   const JEWELRY_ID = generateId()
   const JEWELRY_NAME = "Pikup: Anel de designer em prata esterlina"
@@ -31,82 +22,64 @@ export function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
   const NUMBER_JEWELRY_PRICE = Number(JEWELRY_PRICE)
 
   return (
-    <Container id="joias">
+    <Stack
+      id="joias"
+      direction="row"
+      alignItems="center"
+      justifyContent="space-around"
+      gap="4rem"
+      padding="7% 4rem"
+    >
       <Image src={RingTwo} alt="Jewelry: Ring 2" />
 
-      <InformationContainer>
-        <CardTitle>{JEWELRY_NAME}</CardTitle>
+      <Stack gap="2rem" width="50%">
+        <Typography
+          fontFamily="var(--font-noto_serif_jp)"
+          fontSize="3.1875rem"
+          color="#FFFFFF"
+        >
+          {JEWELRY_NAME}
+        </Typography>
 
-        <CounterTitle>
+        <Typography
+          fontFamily="var(--font-poppins)"
+          fontSize=".875rem"
+          lineHeight="2.25"
+          color="rgba(255, 255, 255, 0.81)"
+          width="80%"
+        >
           Lorem ipsum dolor sit amet. Qui consequatur sint 33 voluptatem officia
           et sint laboriosam sed ipsa sint ut voluptatum labore et possimus
           voluptas. Vel vitae temporibus sit nulla consequatur in illo galisum
           eo
-        </CounterTitle>
+        </Typography>
 
-        <Actions>
-          <GetStartedButton
-            onClick={() =>
-              addToCart({
-                id: JEWELRY_ID,
-                name: JEWELRY_NAME,
-                price: NUMBER_JEWELRY_PRICE,
-                image: RingTwo,
-              })
-            }
+        <Stack direction="row" alignItems="center" gap="2rem">
+          <Button
+            sx={{
+              backgroundColor: "#FFFFFF",
+              color: "#000000",
+              border: 0,
+              borderRadius: 0,
+              fontWeight: 600,
+              fontSize: "1.25rem",
+              textTransform: "uppercase",
+              padding: ".75rem 3%",
+            }}
           >
             Adicionar ao carrinho
-          </GetStartedButton>
+          </Button>
 
-          <PlayVideoText>R$ {JEWELRY_PRICE}</PlayVideoText>
-        </Actions>
-      </InformationContainer>
-    </Container>
+          <Typography
+            color="#FFFFFF"
+            fontSize="2.25rem"
+            fontWeight="900"
+            fontFamily="var(--font-noto_serif_jp)"
+          >
+            R$ {JEWELRY_PRICE}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Stack>
   )
 }
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 7% 64px;
-  gap: 64px;
-`
-
-const InformationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 50%;
-`
-
-const CardTitle = styled(Text)`
-  font-family: var(--font-noto_serif_jp);
-  font-size: 51px;
-`
-
-const CounterTitle = styled(Text)`
-  font-size: 14px;
-  width: 80%;
-`
-
-const Actions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 32px;
-`
-
-const GetStartedButton = styled(Button)`
-  background-color: #ffffff;
-  color: #000000;
-  border: 0;
-  font-weight: 600;
-  font-size: 20px;
-  text-transform: uppercase;
-  padding: 12px 3%;
-`
-
-const PlayVideoText = styled(Text)`
-  font-family: var(--font-noto_serif_jp);
-  font-size: 36px;
-`

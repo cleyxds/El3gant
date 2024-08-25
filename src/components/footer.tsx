@@ -1,19 +1,17 @@
-"use client"
-
 import Image from "next/image"
+import Link from "next/link"
 
-import styled from "styled-components"
-
-import { Text } from "../ui/text"
+import Typography from "@mui/material/Typography"
+import Stack from "@mui/material/Stack"
+import Box from "@mui/material/Box"
 
 import FooterBackgroundImage from "../assets/footer-background.png"
-import Link from "next/link"
 
 type Link = {
   name: string
   url: string | null
   disabled?: boolean
-}
+} & Record<string, any>
 
 type FooterSectionProps = {
   title: string
@@ -24,17 +22,21 @@ const FOOTER_SECTIONS: FooterSectionProps[] = [
   {
     title: "Empresa",
     links: [
+      { name: "Rastreio", url: "/tracking" },
+      { name: "Política de envio", url: "/shipping-policy" },
       { name: "Termos de uso", url: "/terms-of-use" },
-      { name: "Termos de privacidade", url: "/privacy-terms" },
+      { name: "Privacidade", url: "/privacy-terms" },
+      { name: "Parcerias", url: "/partnerships" },
     ],
   },
   {
     title: "Entre em contato",
     links: [
+      { name: "WhatsApp", url: "https://wa.me", target: "_blank" },
       {
         disabled: true,
         name: "Você encontrará o próximo valor de marketing de sua preferência.",
-        url: null,
+        url: "/",
       },
     ],
   },
@@ -43,70 +45,62 @@ const FOOTER_SECTIONS: FooterSectionProps[] = [
 export default function Footer() {
   const renderFooterSection = (section: FooterSectionProps) => {
     return (
-      <FooterSectionContainer>
-        <FooterSectionTitle>{section.title}</FooterSectionTitle>
+      <Stack key={section.title} gap="2rem" position="relative" zIndex="1">
+        <Typography
+          fontFamily="var(--font-poppins)"
+          color="#FFFFFF"
+          fontSize="1.25rem"
+          fontWeight="600"
+        >
+          {section.title}
+        </Typography>
 
-        <FooterSectionOptionsContainer>
+        <Stack gap="1rem">
           {section?.links?.map((link) => {
-            const DISABLED = link?.disabled
-            const props = DISABLED ? {} : { as: Link, href: link.url }
+            const { disabled, name, ...rest } = link
+
+            const customprops = disabled
+              ? {
+                  width: "43%",
+                }
+              : { component: Link, href: link.url }
 
             return (
-              <FooterSectionText {...props}>{link?.name}</FooterSectionText>
+              <Typography
+                key={name}
+                color={disabled ? "rgba(255, 255, 255, 0.5)" : "#FFFFFF"}
+                fontSize=".875rem"
+                fontFamily="var(--font-poppins)"
+                fontWeight="300"
+                width="100%"
+                {...customprops}
+                {...rest}
+              >
+                {name}
+              </Typography>
             )
           })}
-        </FooterSectionOptionsContainer>
-      </FooterSectionContainer>
+        </Stack>
+      </Stack>
     )
   }
 
   return (
-    <FooterContainer>
-      <FooterBackground>
+    <Stack
+      component="footer"
+      direction="row"
+      position="relative"
+      alignItems="flex-start"
+      justifyContent="center"
+      minHeight="4rem"
+      margin="10% 0rem 2rem 0rem"
+      gap="10%"
+    >
+      <Box position="absolute" bottom="-2rem" zIndex="1">
         <Image src={FooterBackgroundImage} alt="Footer: Background" />
-      </FooterBackground>
+      </Box>
 
       {FOOTER_SECTIONS?.map(renderFooterSection)}
-    </FooterContainer>
+    </Stack>
   )
 }
-
-const FooterContainer = styled.footer`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-
-  min-height: 64px;
-  margin: 10% 0px 16px 0px;
-  gap: 10%;
-`
-
-const FooterSectionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-`
-
-const FooterSectionOptionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`
-
-const FooterBackground = styled.div`
-  position: absolute;
-  bottom: -16px;
-  z-index: -1;
-`
-
-const FooterSectionTitle = styled(Text)`
-  font-size: 18px;
-  font-weight: 600;
-`
-
-const FooterSectionText = styled(Text)`
-  font-size: 14px;
-  font-weight: 400;
-  width: 100%;
-`

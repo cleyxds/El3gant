@@ -1,13 +1,14 @@
-import { Text } from "../../ui/text"
+import Container from "@mui/material/Container"
+import Typography from "@mui/material/Typography"
 
-import { Header } from "../components/header"
+import Header from "@/components/header"
 
-export default function TermosOfUsePage() {
+export default function TermsOfUsePage() {
   return (
-    <main>
+    <Container>
       <Header nav={false} />
 
-      <Text>TermosOfUse Animation</Text>
-    </main>
+      <Typography color="#FFFFFF">TermsOfUsePage</Typography>
+    </Container>
   )
 }

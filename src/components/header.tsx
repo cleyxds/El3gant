@@ -103,7 +103,6 @@ export default async function Header({ nav = true }: HeaderProps) {
                   height: "2.4375rem",
                   border: "1px solid #FFFFFF",
                   color: "#FFFFFF",
-                  backgroundColor: "#000000",
                   borderRadius: 0,
                   fontFamily: "var(--font-inter)",
                   fontWeight: 600,
@@ -112,7 +111,6 @@ export default async function Header({ nav = true }: HeaderProps) {
 
                   "&:hover": {
                     filter: "brightness(0.9)",
-                    backgroundColor: "#000000",
                   },
                 }}
               >

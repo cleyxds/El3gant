@@ -27,7 +27,7 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             {children}
 
-            <Copyright />
+            {/* <Copyright /> */}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

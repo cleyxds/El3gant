@@ -25,7 +25,7 @@ const FOOTER_SECTIONS: FooterSectionProps[] = [
       { name: "Rastreio", url: "/tracking" },
       { name: "Política de envio", url: "/shipping-policy" },
       { name: "Termos de uso", url: "/terms-of-use" },
-      { name: "Privacidade", url: "/privacy-terms" },
+      { name: "Privacidade", url: "/privacy-policy" },
       { name: "Parcerias", url: "/partnerships" },
     ],
   },

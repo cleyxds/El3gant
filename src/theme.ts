@@ -38,6 +38,10 @@ const screen = css`
   background-color: #000000;
 `
 
+const rect_button = css`
+  border-radius: 0;
+`
+
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -75,6 +79,10 @@ const theme = createTheme({
             background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
           `,
         },
+        {
+          props: { variant: "rect" },
+          style: rect_button,
+        },
       ],
     },
   },
@@ -83,6 +91,7 @@ const theme = createTheme({
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     gradient: true
+    rect: true
   }
 }
 

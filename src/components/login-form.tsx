@@ -79,4 +79,6 @@ export default function LoginForm() {
   )
 }
 
-const FormInput = styled(TextField)``
+const FormInput = styled(TextField)`
+  background-color: #ffffff;
+`

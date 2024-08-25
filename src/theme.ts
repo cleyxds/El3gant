@@ -4,13 +4,20 @@ import { createTheme } from "@mui/material/styles"
 
 import { css } from "@mui/material/styles"
 
-import { Poppins, Noto_Serif_JP } from "next/font/google"
+import { Poppins, Noto_Serif_JP, Inter } from "next/font/google"
 
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
+})
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["400", "500", "600"],
 })
 
 const noto_serif_jp = Noto_Serif_JP({
@@ -28,20 +35,25 @@ const screen = css`
   margin: 0;
   min-height: 100vh;
   max-width: 100% !important;
+  background-color: #000000;
 `
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
-      main: "#006039",
+      main: "#FFFFFF",
     },
     secondary: {
-      main: "#a37e2c",
+      main: "#000000",
     },
   },
   typography: {
-    fontFamily: `${poppins.style.fontFamily}, ${noto_serif_jp.style.fontFamily}`,
+    fontFamily: [
+      poppins.style.fontFamily,
+      inter.style.fontFamily,
+      noto_serif_jp.style.fontFamily,
+    ].join(","),
   },
   components: {
     MuiContainer: {
@@ -73,5 +85,11 @@ declare module "@mui/material/Button" {
     gradient: true
   }
 }
+
+export const fontVariants = [
+  poppins.variable,
+  inter.variable,
+  noto_serif_jp.variable,
+].join(" ")
 
 export default theme

@@ -4,6 +4,7 @@ import Image from "next/image"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
+import Avatar from "@mui/material/Avatar"
 
 import { getToken } from "@/app/actions/auth"
 
@@ -39,7 +40,7 @@ export default async function Header({ nav = true }: HeaderProps) {
       >
         <Image src={Logo} alt="Logo: Jewerly App" />
 
-        <Typography color="rgb(240, 240, 240)" variant="h6">
+        <Typography color="rgb(240, 240, 240)" variant="h5" fontWeight="500">
           {APP_NAME}
         </Typography>
       </Stack>
@@ -48,7 +49,9 @@ export default async function Header({ nav = true }: HeaderProps) {
         <Stack gap="6rem" direction="row" alignItems="center">
           <Stack gap="2rem" direction="row" alignItems="center">
             <Typography
-              variant="body1"
+              variant="h6"
+              fontWeight="300"
+              fontSize="1rem"
               color="rgb(240, 240, 240)"
               component={Link}
               href="/"
@@ -57,7 +60,9 @@ export default async function Header({ nav = true }: HeaderProps) {
             </Typography>
 
             <Typography
-              variant="body1"
+              variant="h6"
+              fontWeight="300"
+              fontSize="1rem"
               color="rgb(240, 240, 240)"
               component={Link}
               href="#about"
@@ -66,7 +71,9 @@ export default async function Header({ nav = true }: HeaderProps) {
             </Typography>
 
             <Typography
-              variant="body1"
+              variant="h6"
+              fontWeight="300"
+              fontSize="1rem"
               color="rgb(240, 240, 240)"
               component={Link}
               href="#jewerly"
@@ -75,7 +82,9 @@ export default async function Header({ nav = true }: HeaderProps) {
             </Typography>
 
             <Typography
-              variant="body1"
+              variant="h6"
+              fontWeight="300"
+              fontSize="1rem"
               color="rgb(240, 240, 240)"
               component={Link}
               href="catalog"
@@ -86,17 +95,83 @@ export default async function Header({ nav = true }: HeaderProps) {
 
           <Stack direction="row" alignItems="center" gap="1rem">
             {token ? (
-              <Button LinkComponent={Link} href="profile">
-                <Typography variant="body2">Cleyson Barbosa</Typography>
+              <Button
+                LinkComponent={Link}
+                href="profile"
+                sx={{
+                  minWidth: "6.25rem",
+                  height: "2.4375rem",
+                  border: "1px solid #FFFFFF",
+                  color: "#FFFFFF",
+                  backgroundColor: "#000000",
+                  borderRadius: 0,
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 600,
+                  fontSize: "1.045rem",
+                  gap: "0.5rem",
+
+                  "&:hover": {
+                    filter: "brightness(0.9)",
+                    backgroundColor: "#000000",
+                  },
+                }}
+              >
+                <Avatar
+                  src="/avatar.jpg"
+                  alt="Cleyson Barbosa"
+                  sx={{
+                    width: "1.5rem",
+                    height: "1.5rem",
+                  }}
+                />
+                Seu perfil
               </Button>
             ) : (
-              <Button variant="contained" LinkComponent={Link} href="login">
-                <Typography variant="body2">Login</Typography>
+              <Button
+                LinkComponent={Link}
+                href="login"
+                sx={{
+                  maxWidth: "6.25rem",
+                  width: "6.25rem",
+                  height: "2.4375rem",
+                  border: "1px solid #FFFFFF",
+                  color: "#FFFFFF",
+                  backgroundColor: "#000000",
+                  borderRadius: 0,
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 600,
+                  fontSize: "1.045rem",
+
+                  "&:hover": {
+                    filter: "brightness(0.9)",
+                    backgroundColor: "#000000",
+                  },
+                }}
+              >
+                Log In
               </Button>
             )}
 
-            <Button variant="contained" href="get-started">
-              <Typography variant="body2">Começar</Typography>
+            <Button
+              LinkComponent={Link}
+              href="get-started"
+              sx={{
+                maxWidth: "7.375rem",
+                width: "7.375rem",
+                height: "2.5rem",
+                color: "#000000",
+                backgroundColor: "rgba(255, 255, 255, 1)",
+                borderRadius: 0,
+                fontFamily: "var(--font-inter)",
+                fontWeight: 500,
+                fontSize: "1.045rem",
+
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                },
+              }}
+            >
+              Começar
             </Button>
           </Stack>
         </Stack>
@@ -104,23 +179,3 @@ export default async function Header({ nav = true }: HeaderProps) {
     </Stack>
   )
 }
-
-// const HeaderContainer = styled(Stack)`
-//   padding: 16px 64px;
-//   justify-content: space-between;
-//   position: sticky;
-//   top: 0;
-//   z-index: 2;
-//   backdrop-filter: blur(8px);
-// `
-
-// const GetStartedButton = styled(Button)`
-//   font-weight: 500;
-//   background-color: #ffffff;
-//   color: #000000;
-//   border: 0;
-
-//   &:hover {
-//     background-color: #f0f0f0;
-//   }
-// `

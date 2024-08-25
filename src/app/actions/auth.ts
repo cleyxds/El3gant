@@ -12,6 +12,7 @@ import {
 } from "firebase/auth"
 
 const TOKEN_COOKIE_NAME = "token"
+const DEFAULT_REDIRECT = "/"
 
 export async function createAccount({
   email,
@@ -26,6 +27,7 @@ export async function createAccount({
 
   cookies().set(TOKEN_COOKIE_NAME, token)
 
+  revalidatePath("/get-started")
   redirect("/get-started")
 }
 
@@ -42,7 +44,8 @@ export async function login({
 
   cookies().set(TOKEN_COOKIE_NAME, token)
 
-  redirect("/get-started")
+  revalidatePath(DEFAULT_REDIRECT)
+  redirect(DEFAULT_REDIRECT)
 }
 
 export async function logout() {
@@ -50,8 +53,8 @@ export async function logout() {
 
   cookies().delete(TOKEN_COOKIE_NAME)
 
-  revalidatePath("/")
-  redirect("/")
+  revalidatePath(DEFAULT_REDIRECT)
+  redirect(DEFAULT_REDIRECT)
 }
 
 export async function getToken() {

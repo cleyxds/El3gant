@@ -1,4 +1,5 @@
 import Container from "@mui/material/Container"
+import Stack from "@mui/material/Stack"
 
 import LoginForm from "@/components/login-form"
 import SignInForm from "@/components/signin-form"
@@ -10,8 +11,10 @@ export default function LoginPage() {
     <Container>
       <Header nav={false} />
 
-      <LoginForm />
-      <SignInForm />
+      <Stack gap="2rem" alignItems="center">
+        <LoginForm />
+        <SignInForm />
+      </Stack>
     </Container>
   )
 }

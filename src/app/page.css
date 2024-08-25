@@ -38,10 +38,3 @@ input,
 textarea {
   outline: none;
 }
-
-/* Add a base font size and line height */
-body {
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #000000;
-}

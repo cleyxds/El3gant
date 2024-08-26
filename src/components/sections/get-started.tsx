@@ -11,7 +11,13 @@ import RingOne from "../../assets/ring1.png"
 
 export default function GetStartedSection() {
   return (
-    <Stack position="relative" padding="4rem 4rem 0 4rem" gap="2rem">
+    <Stack
+      id="about"
+      position="relative"
+      padding="4rem 4rem 0 4rem"
+      gap="2rem"
+      sx={{ scrollMarginTop: "4rem" }}
+    >
       <JewelryShowcase showcaseUrl={RingOne} />
 
       <Typography
@@ -39,12 +45,11 @@ export default function GetStartedSection() {
         <Button
           LinkComponent={Link}
           href="/get-started"
+          variant="rect"
           sx={{
-            backgroundColor: "#FFFFFF",
-            color: "#000000",
-            border: 0,
+            fontFamily: "var(--font-poppins)",
             fontWeight: 600,
-            fontSize: 20,
+            fontSize: "1.25rem",
             textTransform: "uppercase",
             padding: ".75rem 3%",
           }}

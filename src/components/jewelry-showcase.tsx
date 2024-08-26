@@ -66,6 +66,12 @@ function Explore() {
         borderRadius="9999px"
         justifyContent="center"
         alignItems="center"
+        sx={{
+          "&:hover": {
+            filter: "brightness(0.9)",
+            backgroundColor: "#000000",
+          },
+        }}
       >
         <Typography
           variant="h6"

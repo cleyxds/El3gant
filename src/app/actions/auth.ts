@@ -12,6 +12,7 @@ import {
 } from "firebase/auth"
 
 const TOKEN_COOKIE_NAME = "token"
+const USER_ID_COOKIE_NAME = "user_id"
 const DEFAULT_REDIRECT = "/"
 
 export async function createAccount({
@@ -26,6 +27,7 @@ export async function createAccount({
   const token = await user.user?.getIdToken()
 
   cookies().set(TOKEN_COOKIE_NAME, token)
+  cookies().set(USER_ID_COOKIE_NAME, user.user.uid)
 
   revalidatePath("/get-started")
   redirect("/get-started")
@@ -43,6 +45,7 @@ export async function login({
   const token = await user.user?.getIdToken()
 
   cookies().set(TOKEN_COOKIE_NAME, token)
+  cookies().set(USER_ID_COOKIE_NAME, user.user.uid)
 
   revalidatePath(DEFAULT_REDIRECT)
   redirect(DEFAULT_REDIRECT)
@@ -52,6 +55,7 @@ export async function logout() {
   await signOut(auth)
 
   cookies().delete(TOKEN_COOKIE_NAME)
+  cookies().delete(USER_ID_COOKIE_NAME)
 
   revalidatePath(DEFAULT_REDIRECT)
   redirect(DEFAULT_REDIRECT)
@@ -61,4 +65,10 @@ export async function getToken() {
   const token = cookies().get(TOKEN_COOKIE_NAME)
 
   return token?.value
+}
+
+export async function validateAdminRole(user: User | null) {
+  if (!user) return false
+
+  return user?.admin
 }

@@ -3,12 +3,18 @@ import Typography from "@mui/material/Typography"
 
 import Header from "@/components/header"
 
-export default function ExplorePage() {
+export default async function BuyPage({
+  params: { slug },
+}: Readonly<{ params: { slug: string } }>) {
+  console.log(slug)
+
   return (
     <Container>
       <Header nav={false} />
 
-      <Typography color="white">Explore Animation</Typography>
+      <Typography variant="h3" color="white">
+        Comprar {slug}
+      </Typography>
     </Container>
   )
 }

@@ -1,16 +1,23 @@
-import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
+import Avatar from "@mui/material/Avatar"
 
 import { logout } from "@/app/actions/auth"
 
 export default function Logout() {
   return (
     <Stack component="form" action={logout}>
-      <Button type="submit" variant="contained">
-        <Typography variant="body1" color="white">
-          Logout
-        </Typography>
+      <Button
+        startIcon={<Avatar />}
+        type="submit"
+        variant="rect"
+        sx={{
+          alignSelf: "flex-start",
+          fontFamily: "var(--font-poppins)",
+          fontWeight: 300,
+        }}
+      >
+        Logout
       </Button>
     </Stack>
   )

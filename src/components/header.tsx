@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography"
 import Avatar from "@mui/material/Avatar"
 
 import { getToken } from "@/app/actions/auth"
+import { getUserDetails } from "@/app/actions/user"
 
 import { APP_NAME } from "../config"
 
@@ -17,6 +18,7 @@ type HeaderProps = {
 }
 export default async function Header({ nav = true }: HeaderProps) {
   const token = await getToken()
+  const currentUser = await getUserDetails()
 
   return (
     <Stack
@@ -115,8 +117,8 @@ export default async function Header({ nav = true }: HeaderProps) {
                 }}
               >
                 <Avatar
-                  src="/avatar.jpg"
-                  alt="Cleyson Barbosa"
+                  src={currentUser?.avatar_url}
+                  alt={currentUser?.name}
                   sx={{
                     width: "1.5rem",
                     height: "1.5rem",

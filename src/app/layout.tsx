@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
 
-import Copyright from "@/components/copyright"
+import Copyright from "@/components/sections/copyright"
 
 import { APP_NAME } from "@/config"
 import theme, { fontVariants } from "../theme"

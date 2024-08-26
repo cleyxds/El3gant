@@ -1,20 +1,45 @@
-// import Image from "next/image"
+import Container from "@mui/material/Container"
+import Typography from "@mui/material/Typography"
+import Stack from "@mui/material/Stack"
 
-// import { useContext, useState } from "react"
+import Header from "@/components/header"
 
-// import { Text } from "../../../ui/text"
+import { getUserDetails } from "@/app/actions/user"
+import { getShoppingCart } from "@/app/actions/shopping-cart"
+import RemoveShoppingCartItem from "./remove-item"
 
-// import { CartContext } from "../../../contexts/CartContext"
-// import { styled } from "@mui/material"
+export default async function ShoppingCartPage() {
+  const userID = await getUserDetails().then((user) => user?.userID)
+  const cart = await getShoppingCart(userID)
 
-import { redirect } from "next/navigation"
+  return (
+    <Container>
+      <Header nav={false} />
 
-import { getToken } from "@/app/actions/auth"
+      <Typography variant="h4" color="#FFFFFF">
+        Carrinho
+      </Typography>
 
-export default async function CartPage() {
-  const token = await getToken()
+      <Stack alignItems="flex-start" padding={2}>
+        {cart.map((item) => (
+          <Stack
+            key={item.docID}
+            gap="1rem"
+            border="1px solid #FFFFFFE5"
+            padding={2}
+          >
+            <Typography variant="h6" color="#FFFFFF">
+              {item.product_slug}
+            </Typography>
 
-  if (!token) redirect("/login")
+            <Typography variant="body1" color="#FFFFFF">
+              Quantidade: {item.quantity}
+            </Typography>
 
-  return null
+            <RemoveShoppingCartItem item={item} />
+          </Stack>
+        ))}
+      </Stack>
+    </Container>
+  )
 }

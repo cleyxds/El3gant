@@ -40,6 +40,16 @@ const screen = css`
 
 const rect_button = css`
   border-radius: 0;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 0;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 1.045rem;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 `
 
 const theme = createTheme({

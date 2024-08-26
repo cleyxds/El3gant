@@ -1,36 +1,37 @@
+"use client"
+
 import Image from "next/image"
 
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 
-import { generateId } from "../../lib/generateId"
+import { onAddFromCard } from "@/app/actions/shopping-cart"
 
-import RingTwo from "../../assets/ring2.png"
+import RingTwo from "../assets/ring2.png"
 
 type CardType = "LEFT-RIGHT" | "RIGHT-LEFT"
 type JewelryCard = {
-  type?: CardType
+  cardType?: CardType
+  data: Jewelry
 }
 
-export default function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
-  if (type !== "LEFT-RIGHT") return null
-
-  const JEWELRY_ID = generateId()
-  const JEWELRY_NAME = "Pikup: Anel de designer em prata esterlina"
-  const JEWELRY_PRICE = "549.29"
-  const NUMBER_JEWELRY_PRICE = Number(JEWELRY_PRICE)
+export default function JewelryCard({
+  cardType = "LEFT-RIGHT",
+  data,
+}: JewelryCard) {
+  if (cardType !== "LEFT-RIGHT") return null
 
   return (
     <Stack
-      id="joias"
+      id="jewerly"
       direction="row"
       alignItems="center"
       justifyContent="space-around"
       gap="4rem"
       padding="7% 4rem"
     >
-      <Image src={RingTwo} alt="Jewelry: Ring 2" />
+      <Image src={RingTwo} alt={data.title} />
 
       <Stack gap="2rem" width="50%">
         <Typography
@@ -38,7 +39,7 @@ export default function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
           fontSize="3.1875rem"
           color="#FFFFFF"
         >
-          {JEWELRY_NAME}
+          {data.name}
         </Typography>
 
         <Typography
@@ -48,19 +49,15 @@ export default function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
           color="rgba(255, 255, 255, 0.81)"
           width="80%"
         >
-          Lorem ipsum dolor sit amet. Qui consequatur sint 33 voluptatem officia
-          et sint laboriosam sed ipsa sint ut voluptatum labore et possimus
-          voluptas. Vel vitae temporibus sit nulla consequatur in illo galisum
-          eo
+          {data.description}
         </Typography>
 
         <Stack direction="row" alignItems="center" gap="2rem">
           <Button
+            onClick={() => onAddFromCard(data)}
+            variant="rect"
             sx={{
-              backgroundColor: "#FFFFFF",
-              color: "#000000",
-              border: 0,
-              borderRadius: 0,
+              fontFamily: "var(--font-poppins)",
               fontWeight: 600,
               fontSize: "1.25rem",
               textTransform: "uppercase",
@@ -76,7 +73,7 @@ export default function JewelryCard({ type = "LEFT-RIGHT" }: JewelryCard) {
             fontWeight="900"
             fontFamily="var(--font-noto_serif_jp)"
           >
-            R$ {JEWELRY_PRICE}
+            R$ {data.price}
           </Typography>
         </Stack>
       </Stack>

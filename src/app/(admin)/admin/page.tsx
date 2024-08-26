@@ -1,14 +1,15 @@
 import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
 
 import Header from "@/components/header"
 
-export default function ExplorePage() {
+import AdminRouteButtons from "@/components/admin-route-buttons"
+
+export default async function AdminPage() {
   return (
     <Container>
       <Header nav={false} />
 
-      <Typography color="white">Explore Animation</Typography>
+      <AdminRouteButtons />
     </Container>
   )
 }

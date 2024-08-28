@@ -6,6 +6,9 @@ import { styled } from "@mui/material/styles"
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
+import { red, common } from "@mui/material/colors"
+
+import { FileSchema } from "./create-product-form"
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 
@@ -23,20 +26,28 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 })
 
+type Errors = FieldError | undefined
+
 export default function ImagePicker({
   errors,
   onPickImage,
   imageUrl,
   ...props
 }: {
-  errors: FieldError | undefined
+  errors: Errors[]
   imageUrl: string
   onPickImage: (preview_image_url: File) => void
 }) {
+  const [errors_image_url, errors_image_file] = errors
+
+  const hasErrors = Boolean(errors_image_url) || Boolean(errors_image_file)
+
   const handleUploadedFile = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0]
+
+    FileSchema.safeParse(file)
 
     if (!file) return
 
@@ -52,7 +63,9 @@ export default function ImagePicker({
           alignItems="center"
           borderRadius="0.25rem"
           padding="0.5rem"
-          border="2px solid #FFFFFF"
+          border={`2px solid ${
+            Boolean(errors_image_file) ? red[700] : common.white
+          }`}
         >
           {imageUrl ? (
             <Image
@@ -84,14 +97,14 @@ export default function ImagePicker({
         </Stack>
 
         <Button
-          color={Boolean(errors) ? "error" : undefined}
+          color={hasErrors ? "error" : undefined}
           component="label"
           role={undefined}
           variant="contained"
           tabIndex={-1}
           startIcon={<CloudUploadIcon />}
         >
-          Carrege uma imagem
+          Carregue uma imagem
           <VisuallyHiddenInput
             {...props}
             onChange={handleUploadedFile}
@@ -100,16 +113,33 @@ export default function ImagePicker({
         </Button>
       </Stack>
 
-      {Boolean(errors) && (
+      {Boolean(errors_image_url) && (
         <Typography
-          color={Boolean(errors) ? theme.palette.error.main : "#000000"}
+          color={
+            Boolean(errors_image_url) ? theme.palette.error.main : "#000000"
+          }
           fontFamily="var(--font-poppins)"
           fontWeight="400"
           fontSize="0.75rem"
           lineHeight="1.66"
           margin=".1875rem .875rem 0 .875rem"
         >
-          {errors?.message}
+          {errors_image_url?.message}
+        </Typography>
+      )}
+
+      {Boolean(errors_image_file) && (
+        <Typography
+          color={
+            Boolean(errors_image_file) ? theme.palette.error.main : "#000000"
+          }
+          fontFamily="var(--font-poppins)"
+          fontWeight="400"
+          fontSize="0.75rem"
+          lineHeight="1.66"
+          margin=".1875rem .875rem 0 .875rem"
+        >
+          {errors_image_file?.message}
         </Typography>
       )}
     </Stack>

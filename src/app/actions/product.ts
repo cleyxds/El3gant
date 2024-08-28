@@ -55,7 +55,7 @@ export async function togglePublishProduct(
 }
 
 export async function onTogglePublish() {
-  await togglePublishProduct("H67prBbSii5jnwOWcE4k", true)
+  await togglePublishProduct("VgmfOREo1AXcpD2P0DUM", true)
 
   revalidatePath("/admin/products")
   revalidatePath("/")
@@ -76,21 +76,19 @@ export async function getProducts(createdBy: string | undefined) {
   return products as unknown as Product[]
 }
 
-export async function getProductBySlug(slug: string) {
+export async function getProductsBySlugs(slugs: string[]) {
   const collectionRef = collection(db, PRODUCTS_COLLECTION)
 
-  const q = query(collectionRef, where("slug", "==", slug))
+  const q = query(collectionRef, where("slug", "in", slugs))
 
   const snapshot = await getDocs(q)
 
-  if (snapshot.empty) {
-    return null
-  }
-
   const products = snapshot.docs.map((doc) => ({
     docID: doc.id,
+    published_at: doc.data().published_at.toDate(),
+    created_at: doc.data().created_at.toDate(),
     ...doc.data(),
   }))
 
-  return products[0] as unknown as Product
+  return products as unknown as Product[]
 }

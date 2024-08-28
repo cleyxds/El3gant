@@ -23,8 +23,8 @@ import generateSlug from "@/lib/generateSlug"
 import { createProduct, onCreateProduct } from "@/app/actions/product"
 import { uploadToStorage } from "@/app/actions/upload"
 
-const FileSchema = z
-  .instanceof(File)
+export const FileSchema = z
+  .instanceof(Blob)
   .refine((file) => file.size <= 5 * 1024 * 1024, {
     message: "O arquivo deve ter no máximo 5MB",
   })
@@ -116,7 +116,7 @@ export default function CreateProductForm() {
     data.categories = []
 
     if (data.image_file && data.slug) {
-      data.image_url = await uploadToStorage(data.image_file, data.slug)
+      data.image_url = await uploadToStorage(data.image_file as File, data.slug)
     }
 
     data.image_file = null
@@ -169,7 +169,7 @@ export default function CreateProductForm() {
         {...register("image_url", { required: true })}
         imageUrl={image_url}
         onPickImage={onPickImage}
-        errors={errors.image_url}
+        errors={[errors.image_url, errors.image_file]}
       />
 
       <Stack>
@@ -200,7 +200,7 @@ export default function CreateProductForm() {
         {isSubmitting ? (
           <CircularProgress size={24} color="inherit" />
         ) : (
-          "Adicionar novo produto"
+          "Criar produto"
         )}
       </Button>
     </Stack>

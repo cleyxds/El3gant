@@ -5,6 +5,9 @@ import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Avatar from "@mui/material/Avatar"
+import IconButton from "@mui/material/IconButton"
+
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 
 import { getToken } from "@/app/actions/auth"
 import { getUserDetails } from "@/app/actions/user"
@@ -97,35 +100,46 @@ export default async function Header({ nav = true }: HeaderProps) {
 
           <Stack direction="row" alignItems="center" gap="1rem">
             {token ? (
-              <Button
-                LinkComponent={Link}
-                href="profile"
-                sx={{
-                  minWidth: "6.25rem",
-                  height: "2.4375rem",
-                  border: "1px solid #FFFFFF",
-                  color: "#FFFFFF",
-                  borderRadius: 0,
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 600,
-                  fontSize: "1.045rem",
-                  gap: "0.5rem",
+              <Stack direction="row" alignItems="center" gap="1rem">
+                <IconButton
+                  LinkComponent={Link}
+                  href="cart"
+                  aria-label="shopping-cart"
+                  sx={{ color: "common.white" }}
+                >
+                  <ShoppingCartIcon />
+                </IconButton>
 
-                  "&:hover": {
-                    filter: "brightness(0.9)",
-                  },
-                }}
-              >
-                <Avatar
-                  src={currentUser?.avatar_url}
-                  alt={currentUser?.name}
+                <Button
+                  LinkComponent={Link}
+                  href="profile"
                   sx={{
-                    width: "1.5rem",
-                    height: "1.5rem",
+                    minWidth: "6.25rem",
+                    height: "2.4375rem",
+                    border: "1px solid #FFFFFF",
+                    color: "#FFFFFF",
+                    borderRadius: 0,
+                    fontFamily: "var(--font-inter)",
+                    fontWeight: 600,
+                    fontSize: "1.045rem",
+                    gap: "0.5rem",
+
+                    "&:hover": {
+                      filter: "brightness(0.9)",
+                    },
                   }}
-                />
-                Seu perfil
-              </Button>
+                >
+                  <Avatar
+                    src={currentUser?.avatar_url}
+                    alt={currentUser?.name}
+                    sx={{
+                      width: "1.5rem",
+                      height: "1.5rem",
+                    }}
+                  />
+                  Seu perfil
+                </Button>
+              </Stack>
             ) : (
               <Button
                 LinkComponent={Link}

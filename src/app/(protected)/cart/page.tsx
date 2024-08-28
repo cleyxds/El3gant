@@ -58,18 +58,27 @@ export default async function ShoppingCartPage() {
           ))}
         </Stack>
 
-        <Button
-          variant="rect"
-          LinkComponent={Link}
-          href="#"
-          sx={{
-            alignSelf: "flex-start",
-            fontFamily: "var(--font-poppins)",
-            fontWeight: 300,
-          }}
-        >
-          Ir para checkout
-        </Button>
+        {cart.length ? (
+          <Button
+            variant="rect"
+            LinkComponent={Link}
+            href={`/buy/${cart
+              .map((item) => item.product_slug)
+              .filter((slug) => slug)
+              .join("/")}`}
+            sx={{
+              alignSelf: "flex-start",
+              fontFamily: "var(--font-poppins)",
+              fontWeight: 300,
+            }}
+          >
+            Ir para checkout
+          </Button>
+        ) : (
+          <Typography variant="body1" color="#FFFFFF">
+            Seu carrinho está vazio
+          </Typography>
+        )}
       </Stack>
     </Container>
   )

@@ -23,15 +23,12 @@ import { login } from "@/app/actions/auth"
 import VisibilityIcon from "@/assets/icons/visibility"
 import UnvisibilityIcon from "@/assets/icons/unvisibility"
 
-type Login = {
-  email: string
-  password: string
-}
-
 const LoginSchema = z.object({
   email: z.string().email("O email deve ser válido"),
   password: z.string().min(1, "A senha é obrigatória"),
 })
+
+type Login = z.infer<typeof LoginSchema>
 
 export default function LogInForm({
   handleChangeTab,

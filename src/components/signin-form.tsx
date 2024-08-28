@@ -18,18 +18,13 @@ import MUICheckbox from "@mui/material/Checkbox"
 import InputAdornment from "@mui/material/InputAdornment"
 import IconButton from "@mui/material/IconButton"
 import CircularProgress from "@mui/material/CircularProgress"
-import { red } from "@mui/material/colors"
+
+import theme from "@/theme"
 
 import { createAccount } from "@/app/actions/auth"
 
 import VisibilityIcon from "@/assets/icons/visibility"
 import UnvisibilityIcon from "@/assets/icons/unvisibility"
-
-type SignIn = {
-  email: string
-  password: string
-  terms: boolean
-}
 
 const SignInSchema = z.object({
   email: z.string().email("O email deve ser válido"),
@@ -53,6 +48,8 @@ const SignInSchema = z.object({
     message: "Você deve ler e aceitar os termos",
   }),
 })
+
+type SignIn = z.infer<typeof SignInSchema>
 
 export default function SignInForm({
   handleChangeTab,
@@ -122,7 +119,7 @@ export default function SignInForm({
           })}
           inputProps={{ "aria-label": "terms-checkbox" }}
           sx={{
-            color: Boolean(errors.terms) ? red["700"] : "#000000",
+            color: Boolean(errors.terms) ? theme.palette.error.main : "#000000",
             padding: 0,
 
             "&.Mui-checked": {
@@ -132,7 +129,7 @@ export default function SignInForm({
         />
 
         <Typography
-          color={Boolean(errors.terms) ? red["700"] : "#000000"}
+          color={Boolean(errors.terms) ? theme.palette.error.main : "#000000"}
           fontSize=".75rem"
           lineHeight="1.33"
           fontWeight="500"

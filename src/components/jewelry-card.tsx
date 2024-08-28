@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography"
 
 import { onAddFromCard } from "@/app/actions/shopping-cart"
 
-import RingTwo from "../assets/ring2.png"
-
 type CardType = "LEFT-RIGHT" | "RIGHT-LEFT"
 type JewelryCard = {
   cardType?: CardType
@@ -31,7 +29,13 @@ export default function JewelryCard({
       gap="4rem"
       padding="7% 4rem"
     >
-      <Image src={RingTwo} alt={data.title} />
+      <Image
+        width={412}
+        height={412}
+        src={data.image_url}
+        alt={data.title}
+        objectFit="cover"
+      />
 
       <Stack gap="2rem" width="50%">
         <Typography

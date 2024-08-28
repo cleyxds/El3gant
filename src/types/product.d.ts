@@ -6,12 +6,15 @@ type Product = {
   description?: string
   sub_description?: string
   image_url: string
+  image_file?: File
   slug: string
   categories?: string[]
   published?: boolean
-  created_at?: Date
   published_at?: Date
+  published_by?: string
+  created_at?: Date
   created_by?: string
+  layout: string
 }
 
 type Jewelry = Product

@@ -1,10 +1,10 @@
 "use client"
 
-import Image from "next/image"
-
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
+
+import Image from "./image"
 
 import { onAddFromCard } from "@/app/actions/shopping-cart"
 
@@ -34,7 +34,9 @@ export default function JewelryCard({
         height={412}
         src={data.image_url}
         alt={data.title}
-        objectFit="cover"
+        sx={{
+          objectFit: "scale-down",
+        }}
       />
 
       <Stack gap="2rem" width="50%">

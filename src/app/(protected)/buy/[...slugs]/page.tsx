@@ -1,10 +1,9 @@
-import Image from "next/image"
-
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
 
 import Header from "@/components/header"
+import Image from "@/components/image"
 import PaymentMethods from "../payment-methods"
 
 import { getProductsBySlugs } from "@/app/actions/product"
@@ -48,7 +47,9 @@ export default async function BuyPage({
                 height={412}
                 src={src}
                 alt={alt}
-                objectFit="cover"
+                sx={{
+                  objectFit: "scale-down",
+                }}
               />
             ))}
           </Stack>

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
+import ReactQueryProvider from "./react-query-provider"
 
 import Copyright from "@/components/sections/copyright"
 
@@ -24,11 +25,13 @@ export default function RootLayout({
     <html lang="en" className={fontVariants}>
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            {children}
+          <ReactQueryProvider>
+            <ThemeProvider theme={theme}>
+              {children}
 
-            {/* <Copyright /> */}
-          </ThemeProvider>
+              {/* <Copyright /> */}
+            </ThemeProvider>
+          </ReactQueryProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

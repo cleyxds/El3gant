@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore"
 
 import { getUserDetails } from "@/app/actions/user"
+import { getProductsBySlugs } from "./product"
 
 const SHOPPING_CART_COLLECTION = "shopping_cart"
 
@@ -84,7 +85,23 @@ export async function getShoppingCart(userID: string | undefined) {
   const shoppingCart = snapshot.docs.map((doc) => ({
     docID: doc.id,
     ...doc.data(),
-  }))
+  })) as ShoppingCart[]
 
-  return shoppingCart as unknown as ShoppingCart[]
+  const productSlugs = shoppingCart.map((item) => item.product_slug)
+  const products = await getProductsBySlugs(productSlugs)
+
+  const data = shoppingCart
+    .map((item) => {
+      const product = products.find(
+        (product) => product.slug === item.product_slug
+      )
+
+      return {
+        ...item,
+        product,
+      }
+    })
+    .filter((item) => item.product?.published)
+
+  return data as ShoppingCart[]
 }

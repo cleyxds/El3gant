@@ -3,4 +3,5 @@ type ShoppingCart = {
   userID: string
   product_slug: string
   quantity: number
+  product?: Jewelry
 }

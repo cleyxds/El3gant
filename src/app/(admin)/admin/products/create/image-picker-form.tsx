@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 import { FieldError } from "react-hook-form"
 
 import { styled } from "@mui/material/styles"
@@ -10,6 +8,7 @@ import { red, common } from "@mui/material/colors"
 
 import { FileSchema } from "./create-product-form"
 
+import Image from "@/components/image"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 
 import theme from "@/theme"
@@ -74,7 +73,6 @@ export default function ImagePicker({
               alt="Preview da image"
               width={250}
               height={250}
-              objectFit="cover"
             />
           ) : (
             <Stack

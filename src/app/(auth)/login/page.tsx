@@ -1,11 +1,11 @@
 import Link from "next/link"
-import Image from "next/image"
 
 import Container from "@mui/material/Container"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 
+import Image from "@/components/image"
 import AuthTabs from "./auth-tabs"
 
 import { APP_NAME } from "@/config"
@@ -26,13 +26,7 @@ export default function LoginPage() {
           paddingTop="2rem"
           paddingBottom="2rem"
         >
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={48}
-            height={48}
-            objectFit="cover"
-          />
+          <Image src={Logo} alt="Logo" width={48} height={48} />
 
           <Typography color="rgb(240, 240, 240)" variant="h5" fontWeight="500">
             {APP_NAME}

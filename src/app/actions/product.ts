@@ -11,6 +11,7 @@ import {
   query,
   doc,
   updateDoc,
+  serverTimestamp,
 } from "firebase/firestore"
 
 import { db } from "@/services/firebase"
@@ -47,15 +48,15 @@ export async function togglePublishProduct(
 
   await updateDoc(docRef, {
     published,
-    published_at: new Date(),
+    published_at: serverTimestamp(),
     published_by: await getUserDetails().then((user) => user?.userID),
   })
 
   return docRef.id
 }
 
-export async function onTogglePublish() {
-  await togglePublishProduct("VgmfOREo1AXcpD2P0DUM", true)
+export async function onTogglePublish(productID: string, published: boolean) {
+  await togglePublishProduct(productID, published)
 
   revalidatePath("/admin/products")
   revalidatePath("/")
@@ -70,6 +71,8 @@ export async function getProducts(createdBy: string | undefined) {
 
   const products = snapshot.docs.map((doc) => ({
     docID: doc.id,
+    published_at: doc.data()?.published_at?.toDate(),
+    created_at: doc.data()?.created_at?.toDate(),
     ...doc.data(),
   }))
 

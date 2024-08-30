@@ -18,3 +18,8 @@ type Product = {
 }
 
 type Jewelry = Product
+
+type PublishProductProps = {
+  productID: string
+  published: boolean
+}

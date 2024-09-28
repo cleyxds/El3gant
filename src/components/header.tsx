@@ -20,7 +20,7 @@ type HeaderProps = {
   nav?: boolean
 }
 export default async function Header({ nav = true }: HeaderProps) {
-  const token = await getToken()
+  const authenticated = await getToken()
   const currentUser = await getUserDetails()
 
   return (
@@ -99,7 +99,7 @@ export default async function Header({ nav = true }: HeaderProps) {
           </Stack>
 
           <Stack direction="row" alignItems="center" gap="1rem">
-            {token ? (
+            {authenticated ? (
               <Stack direction="row" alignItems="center" gap="1rem">
                 <IconButton
                   LinkComponent={Link}

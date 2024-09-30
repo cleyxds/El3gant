@@ -10,11 +10,11 @@ import Header from "@/components/header"
 import Logout from "@/components/logout"
 import AdminRouteButtons from "@/components/admin-route-buttons"
 
-import { getToken, validateAdminRole } from "@/app/actions/auth"
+import { isAuthenticated, validateAdminRole } from "@/app/actions/auth"
 import { getUserDetails } from "@/app/actions/user"
 
 export default async function ProfilePage() {
-  const authenticated = await getToken()
+  const authenticated = await isAuthenticated()
   const user = await getUserDetails()
   const admin = await validateAdminRole(user)
 

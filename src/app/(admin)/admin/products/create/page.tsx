@@ -54,6 +54,8 @@ export default function AdminCreateProductPage() {
           Perfil
         </Stack>
 
+        <Typography>Admin</Typography>
+
         <Stack
           component={Link}
           href="/admin/products"

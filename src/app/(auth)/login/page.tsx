@@ -1,16 +1,22 @@
+"use client"
+
 import Link from "next/link"
+
+import { signIn } from "next-auth/react"
 
 import Container from "@mui/material/Container"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
 
 import Image from "@/components/image"
 import AuthTabs from "./auth-tabs"
 
 import { APP_NAME } from "@/config"
 
-import Logo from "@/assets/Logo.png"
+import LogoImage from "@/assets/Logo.png"
+import GoogleIcon from "@mui/icons-material/Google"
 
 export default function LoginPage() {
   return (
@@ -26,7 +32,7 @@ export default function LoginPage() {
           paddingTop="2rem"
           paddingBottom="2rem"
         >
-          <Image src={Logo} alt="Logo" width={48} height={48} />
+          <Image src={LogoImage} alt="Logo" width={48} height={48} />
 
           <Typography color="rgb(240, 240, 240)" variant="h5" fontWeight="500">
             {APP_NAME}

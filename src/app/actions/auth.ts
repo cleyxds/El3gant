@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
 
+import { getServerSession } from "next-auth"
+
 import { auth } from "@/services/firebase"
 import {
   signInWithEmailAndPassword,
@@ -40,31 +42,30 @@ export async function login({
   email: string
   password: string
 }) {
-  const user = await signInWithEmailAndPassword(auth, email, password)
+  try {
+    const { user } = await signInWithEmailAndPassword(auth, email, password)
 
-  const token = await user.user?.getIdToken()
+    revalidatePath(DEFAULT_REDIRECT)
 
-  cookies().set(TOKEN_COOKIE_NAME, token)
-  cookies().set(USER_ID_COOKIE_NAME, user.user.uid)
-
-  revalidatePath(DEFAULT_REDIRECT)
-  redirect(DEFAULT_REDIRECT)
+    return user
+  } catch (error) {
+    throw error
+  }
 }
 
 export async function logout() {
-  await signOut(auth)
+  try {
+    await signOut(auth)
 
-  cookies().delete(TOKEN_COOKIE_NAME)
-  cookies().delete(USER_ID_COOKIE_NAME)
-
-  revalidatePath(DEFAULT_REDIRECT)
-  redirect(DEFAULT_REDIRECT)
+    revalidatePath(DEFAULT_REDIRECT)
+  } catch (error) {
+    throw error
+  }
 }
 
-export async function getToken() {
-  const token = cookies().get(TOKEN_COOKIE_NAME)
-
-  return token?.value
+export async function isAuthenticated() {
+  const session = await getServerSession()
+  return !!session
 }
 
 export async function validateAdminRole(user: User | null) {

@@ -9,18 +9,18 @@ import IconButton from "@mui/material/IconButton"
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 
-import { getToken } from "@/app/actions/auth"
+import { isAuthenticated } from "@/app/actions/auth"
 import { getUserDetails } from "@/app/actions/user"
 
-import { APP_NAME } from "../config"
+import { APP_NAME } from "@/config"
 
-import Logo from "../assets/Logo.png"
+import Logo from "@/assets/Logo.png"
 
 type HeaderProps = {
   nav?: boolean
 }
 export default async function Header({ nav = true }: HeaderProps) {
-  const authenticated = await getToken()
+  const authenticated = await isAuthenticated()
   const currentUser = await getUserDetails()
 
   return (
@@ -150,7 +150,7 @@ export default async function Header({ nav = true }: HeaderProps) {
                   height: "2.4375rem",
                   border: "1px solid #FFFFFF",
                   color: "#FFFFFF",
-                  backgroundColor: "#000000",
+                  backgroundColor: "transparent",
                   borderRadius: 0,
                   fontFamily: "var(--font-inter)",
                   fontWeight: 600,
@@ -158,7 +158,7 @@ export default async function Header({ nav = true }: HeaderProps) {
 
                   "&:hover": {
                     filter: "brightness(0.9)",
-                    backgroundColor: "#000000",
+                    backgroundColor: "#00000080",
                   },
                 }}
               >

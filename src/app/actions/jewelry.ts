@@ -15,6 +15,8 @@ export async function getHomepageJewelries() {
 
   const products = snapshot.docs.map((doc) => ({
     docID: doc.id,
+    published_at: doc.data()?.published_at?.toDate(),
+    created_at: doc.data()?.created_at?.toDate(),
     ...doc.data(),
   }))
 

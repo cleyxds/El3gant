@@ -78,6 +78,7 @@ export async function removeQuantityromShoppingCart(
 
 export async function getShoppingCart(userID: string | undefined) {
   const collectionRef = collection(db, SHOPPING_CART_COLLECTION)
+  if (!userID) return []
 
   const q = query(collectionRef, where("userID", "==", userID))
   const snapshot = await getDocs(q)

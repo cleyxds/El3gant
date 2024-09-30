@@ -4,6 +4,8 @@ import { useReducer } from "react"
 
 import Link from "next/link"
 
+import { signIn } from "next-auth/react"
+
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import { z } from "zod"
@@ -25,6 +27,7 @@ import { createAccount } from "@/app/actions/auth"
 
 import VisibilityIcon from "@/assets/icons/visibility"
 import UnvisibilityIcon from "@/assets/icons/unvisibility"
+import GoogleIcon from "@mui/icons-material/Google"
 
 const SignInSchema = z.object({
   email: z.string().email("O email deve ser válido"),
@@ -189,7 +192,7 @@ export default function SignInForm({
         )}
       </Button>
 
-      <Stack padding="1rem 0" alignItems="center">
+      <Stack padding="1rem 0" gap="1rem" alignItems="center">
         <Typography
           fontSize=".75rem"
           lineHeight="1.33"
@@ -213,6 +216,23 @@ export default function SignInForm({
             Faça login
           </Typography>
         </Typography>
+
+        <Button
+          type="button"
+          onClick={() => signIn("google")}
+          endIcon={<GoogleIcon />}
+          sx={{
+            width: "100%",
+            backgroundColor: "#000000",
+
+            "&:hover": {
+              backgroundColor: "#000000",
+              filter: "brightness(0.9)",
+            },
+          }}
+        >
+          Entrar com Google
+        </Button>
       </Stack>
     </Stack>
   )

@@ -63,6 +63,8 @@ export default async function AdminProductsPage() {
           Perfil
         </Stack>
 
+        <Typography>Admin</Typography>
+
         <Typography>Produtos</Typography>
       </Breadcrumbs>
 

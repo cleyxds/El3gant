@@ -64,6 +64,8 @@ export default async function AdminInventoryPage() {
           Perfil
         </Stack>
 
+        <Typography>Admin</Typography>
+
         <Typography>Inventário</Typography>
       </Breadcrumbs>
 

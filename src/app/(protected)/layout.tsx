@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { getToken } from "../actions/auth"
+import { isAuthenticated } from "../actions/auth"
 
 // @ts-ignore
 export default async function ProtectedLayout({
@@ -8,9 +8,9 @@ export default async function ProtectedLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const token = await getToken()
+  const authenticated = await isAuthenticated()
 
-  if (!token) redirect("/login")
+  if (!authenticated) redirect("/login")
 
   return children
 }

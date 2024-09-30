@@ -2,14 +2,16 @@ import type { Metadata } from "next"
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
-import ReactQueryProvider from "./react-query-provider"
+import CssBaseline from "@mui/material/CssBaseline"
 
+import DataRoot from "@/components/data-root"
+
+import ReactQueryProvider from "@/app/react-query-provider"
 import Copyright from "@/components/sections/copyright"
+import Promotion from "@/components/promotion"
 
 import { APP_NAME } from "@/config"
 import theme, { fontVariants } from "../theme"
-
-import "./page.css"
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -26,11 +28,17 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ReactQueryProvider>
-            <ThemeProvider theme={theme}>
-              {children}
+            <DataRoot>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
 
-              {/* <Copyright /> */}
-            </ThemeProvider>
+                <Promotion />
+
+                {children}
+
+                <Copyright />
+              </ThemeProvider>
+            </DataRoot>
           </ReactQueryProvider>
         </AppRouterCacheProvider>
       </body>

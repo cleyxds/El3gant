@@ -3,10 +3,8 @@ import Link from "next/link"
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
-import IconButton from "@mui/material/IconButton"
 import Button from "@mui/material/Button"
-
-import ChevronLeft from "@mui/icons-material/ChevronLeft"
+import Breadcrumbs from "@mui/material/Breadcrumbs"
 
 import Header from "@/components/header"
 import PublishProduct from "./publish-product"
@@ -25,23 +23,52 @@ export default async function AdminProductsPage() {
     <Container>
       <Header nav={false} />
 
-      <Stack alignItems="flex-start" gap="2rem">
-        <IconButton
-          LinkComponent={Link}
-          href="/admin"
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{
+          color: "common.white",
+          p: "0.25rem",
+          alignSelf: "flex-start",
+        }}
+      >
+        <Stack
+          component={Link}
+          href="/"
           sx={{
-            color: "#000000",
-            alignSelf: "flex-start",
-            bgcolor: "#FFFFFF",
+            textDecoration: "underline",
+            transition: "color 0.5s ease",
 
             "&:hover": {
-              bgcolor: "#FFFFFFE5",
+              transition: "color 0.5s ease",
+              color: "#FFFFFF80",
             },
           }}
         >
-          <ChevronLeft />
-        </IconButton>
+          Início
+        </Stack>
 
+        <Stack
+          component={Link}
+          href="/profile"
+          sx={{
+            textDecoration: "underline",
+            transition: "color 0.5s ease",
+
+            "&:hover": {
+              transition: "color 0.5s ease",
+              color: "#FFFFFF80",
+            },
+          }}
+        >
+          Perfil
+        </Stack>
+
+        <Typography>Admin</Typography>
+
+        <Typography>Produtos</Typography>
+      </Breadcrumbs>
+
+      <Stack alignItems="flex-start" gap="2rem">
         <Stack gap="2rem">
           <Typography variant="h4" color="#FFFFFF">
             Gerencie os produtos

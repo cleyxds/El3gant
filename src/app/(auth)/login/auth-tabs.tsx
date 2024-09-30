@@ -58,7 +58,7 @@ export default function AuthTabs() {
           onChange={handleChangeTab}
           aria-label="auth-tabs"
         >
-          <Tab label="Login" {...a11yProps(0)} />
+          <Tab label="Log In" {...a11yProps(0)} />
           <Tab label="Cadastro" {...a11yProps(1)} />
         </Tabs>
       </Box>

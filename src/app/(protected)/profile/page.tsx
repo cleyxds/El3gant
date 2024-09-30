@@ -4,16 +4,17 @@ import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
+import Breadcrumbs from "@mui/material/Breadcrumbs"
 
 import Header from "@/components/header"
 import Logout from "@/components/logout"
 import AdminRouteButtons from "@/components/admin-route-buttons"
 
-import { getToken, validateAdminRole } from "@/app/actions/auth"
+import { isAuthenticated, validateAdminRole } from "@/app/actions/auth"
 import { getUserDetails } from "@/app/actions/user"
 
 export default async function ProfilePage() {
-  const token = await getToken()
+  const authenticated = await isAuthenticated()
   const user = await getUserDetails()
   const admin = await validateAdminRole(user)
 
@@ -22,6 +23,33 @@ export default async function ProfilePage() {
       <Header nav={false} />
 
       <Stack gap="1rem">
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          sx={{
+            color: "common.white",
+            p: "0.25rem",
+            alignSelf: "flex-start",
+          }}
+        >
+          <Stack
+            component={Link}
+            href="/"
+            sx={{
+              textDecoration: "underline",
+              transition: "color 0.5s ease",
+
+              "&:hover": {
+                transition: "color 0.5s ease",
+                color: "#FFFFFF80",
+              },
+            }}
+          >
+            Início
+          </Stack>
+
+          <Typography>Perfil</Typography>
+        </Breadcrumbs>
+
         <Typography variant="h3" color="white">
           Olá {user?.name} 😎👍🏾
         </Typography>
@@ -40,8 +68,7 @@ export default async function ProfilePage() {
         </Button>
 
         {admin && <AdminRouteButtons />}
-
-        {token && <Logout />}
+        {authenticated && <Logout />}
       </Stack>
     </Container>
   )

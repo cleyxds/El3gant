@@ -1,8 +1,10 @@
 "use client"
 
-import { useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 
 import { useForm, SubmitHandler } from "react-hook-form"
+
+import { ProductPreviewContext } from "@/contexts/product-preview"
 
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -74,6 +76,8 @@ const CreateProductSchema = z.object({
 export type CreateProductTypes = z.infer<typeof CreateProductSchema>
 
 export default function CreateProductForm() {
+  const { setProductPreview } = useContext(ProductPreviewContext)
+
   const {
     register,
     handleSubmit,
@@ -93,6 +97,21 @@ export default function CreateProductForm() {
   const name = watch("name")
   const image_file = watch("image_file")
   const image_url = watch("image_url")
+  const preview = watch()
+
+  const previous_previewRef = useRef(preview)
+
+  useEffect(() => {
+    const hasFormChanged = (prev: any, current: any) => {
+      return JSON.stringify(prev) !== JSON.stringify(current)
+    }
+
+    if (hasFormChanged(previous_previewRef.current, preview)) {
+      setProductPreview(preview)
+
+      previous_previewRef.current = preview
+    }
+  }, [preview])
 
   useEffect(() => {
     if (name) {
@@ -126,6 +145,15 @@ export default function CreateProductForm() {
     onCreateProduct(productID)
   }
 
+  const handlePriceFormat = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { value } = e.target
+
+    const price = value.replace(/\D/g, "").replace(/(\d)(\d{2})$/, "$1.$2")
+
+    // @ts-ignore
+    setValue("price", price)
+  }
+
   return (
     <Stack gap="1rem" component="form" onSubmit={handleSubmit(onSubmit)}>
       <FormInput
@@ -146,6 +174,7 @@ export default function CreateProductForm() {
           inputMode="numeric"
           error={Boolean(errors.price)}
           helperText={errors.price?.message}
+          onChange={handlePriceFormat}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">R$</InputAdornment>
@@ -153,7 +182,7 @@ export default function CreateProductForm() {
           }}
         />
 
-        <Typography
+        {/* <Typography
           color="#FFFFFF"
           fontFamily="var(--font-poppins)"
           fontWeight="400"
@@ -162,7 +191,7 @@ export default function CreateProductForm() {
           margin=".1875rem .875rem 0 .875rem"
         >
           Use o ponto (.) para separar os centavos
-        </Typography>
+        </Typography> */}
       </Stack>
 
       <ImagePicker

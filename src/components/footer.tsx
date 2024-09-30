@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import Typography from "@mui/material/Typography"
+import Typography, { TypographyProps } from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
 
@@ -59,11 +59,11 @@ export default function Footer() {
           {section?.links?.map((link) => {
             const { disabled, name, ...rest } = link
 
-            const customprops = disabled
-              ? {
-                  width: "43%",
-                }
-              : { component: Link, href: link.url }
+            let customprops: TypographyProps<"a"> = { width: "43%" }
+
+            if (!disabled) {
+              customprops = { component: Link, href: link.url! }
+            }
 
             return (
               <Typography

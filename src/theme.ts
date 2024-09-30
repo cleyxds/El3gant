@@ -95,6 +95,28 @@ const theme = createTheme({
         },
       ],
     },
+    MuiCssBaseline: {
+      styleOverrides: (theme) => ({
+        html: {
+          a: {
+            textDecoration: "none",
+            color: "inherit",
+          },
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "14px",
+          },
+          [theme.breakpoints.between("sm", "md")]: {
+            fontSize: "15px",
+          },
+          [theme.breakpoints.between("md", "lg")]: {
+            fontSize: "16px",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "16px",
+          },
+        },
+      }),
+    },
   },
 })
 

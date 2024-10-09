@@ -5,9 +5,9 @@ type User = {
   email: string
   avatar_url?: string
   admin?: boolean
-  created_at?: Date
-  updated_at?: Date
-  deleted_at?: Date
-  published_at?: Date
+  created_at?: FirebaseTimestamp
+  updated_at?: FirebaseTimestamp
+  deleted_at?: FirebaseTimestamp
+  published_at?: FirebaseTimestamp
   published?: boolean
 }

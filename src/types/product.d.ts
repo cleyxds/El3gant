@@ -10,9 +10,9 @@ type Product = {
   slug: string
   categories?: string[]
   published?: boolean
-  published_at?: Date
+  published_at?: FirebaseTimestamp
   published_by?: string
-  created_at?: Date
+  created_at?: FirebaseTimestamp
   created_by?: string
   layout: string
 }

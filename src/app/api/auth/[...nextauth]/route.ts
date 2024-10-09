@@ -37,9 +37,6 @@ const handler = NextAuth({
       clientSecret: GOOGLE_CLIENT_SECRET,
     }),
   ],
-  callbacks: {
-    redirect: () => "/",
-  },
 })
 
 export { handler as GET, handler as POST }

@@ -95,6 +95,7 @@ export default function Footer() {
       minHeight="4rem"
       margin="10% 0rem 2rem 0rem"
       gap="10%"
+      overflow="hidden"
     >
       <Box position="absolute" bottom="-2rem" zIndex="1">
         <Image src={FooterBackgroundImage} alt="Footer: Background" />

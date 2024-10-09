@@ -5,6 +5,7 @@ import { useReducer } from "react"
 import { signIn } from "next-auth/react"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import { useForm, SubmitHandler } from "react-hook-form"
 
@@ -14,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { styled } from "@mui/material"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
+import FormHelperText from "@mui/material/FormHelperText"
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import InputAdornment from "@mui/material/InputAdornment"
@@ -31,28 +33,52 @@ const LoginSchema = z.object({
 
 type Login = z.infer<typeof LoginSchema>
 
+function getErrorMessage(error_message: string) {
+  let error = "Ocorreu um erro inesperado. Por favor, tente novamente."
+
+  if (error_message.includes("auth/invalid-credential")) {
+    error = "Email ou senha incorretos. Por favor, tente novamente."
+  }
+
+  return error
+}
+
 export default function LogInForm({
   handleChangeTab,
 }: {
   handleChangeTab: (_event: any, value: number) => void
 }) {
+  const { replace } = useRouter()
   const [pwdvis, togglePwdVis] = useReducer((state) => !state, false)
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<Login>({
     resolver: zodResolver(LoginSchema),
   })
 
-  const onSubmit: SubmitHandler<Login> = (data) => {
-    signIn("credentials", {
+  const onSubmit: SubmitHandler<Login> = async (data) => {
+    const result = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     })
+
+    if (result?.error) {
+      const message = getErrorMessage(result.error)
+
+      setError("root", {
+        type: "manual",
+        message,
+      })
+    }
+
+    if (result?.ok) {
+      replace("/")
+    }
   }
 
   return (
@@ -66,6 +92,12 @@ export default function LogInForm({
       >
         Log In
       </Typography>
+
+      {Boolean(errors.root) && (
+        <FormHelperText error sx={{ mx: "14px" }}>
+          {errors.root?.message}
+        </FormHelperText>
+      )}
 
       <FormInput
         {...register("email", { required: true })}
@@ -183,7 +215,7 @@ export default function LogInForm({
 
         <Button
           type="button"
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           endIcon={<GoogleIcon />}
           sx={{
             width: "100%",

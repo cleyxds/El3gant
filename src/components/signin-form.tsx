@@ -219,7 +219,7 @@ export default function SignInForm({
 
         <Button
           type="button"
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           endIcon={<GoogleIcon />}
           sx={{
             width: "100%",

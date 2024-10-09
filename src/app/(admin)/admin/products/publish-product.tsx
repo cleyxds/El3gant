@@ -26,7 +26,6 @@ export default function PublishProduct(product: Product) {
 
   return (
     <Stack
-      key={product.docID}
       gap="1rem"
       direction="row"
       alignItems="center"

@@ -13,12 +13,16 @@ export async function getHomepageJewelries() {
 
   const snapshot = await getDocs(q)
 
-  const products = snapshot.docs.map((doc) => ({
-    docID: doc.id,
-    published_at: doc.data()?.published_at?.toDate(),
-    created_at: doc.data()?.created_at?.toDate(),
-    ...doc.data(),
-  }))
+  const products = snapshot.docs.map((doc) => {
+    const data = doc.data() as Product
+
+    return {
+      ...data,
+      docID: doc.id,
+      published_at: data?.published_at?.seconds,
+      created_at: data?.created_at?.seconds,
+    }
+  })
 
   return products as unknown as Product[]
 }

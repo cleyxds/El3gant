@@ -118,7 +118,7 @@ export default async function AdminProductsPage() {
 
             <Stack>
               {products?.map((product) => (
-                <PublishProduct {...product} />
+                <PublishProduct key={product.docID} {...product} />
               ))}
             </Stack>
           </Stack>

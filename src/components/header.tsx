@@ -14,8 +14,6 @@ import { getUserDetails } from "@/app/actions/user"
 
 import { APP_NAME } from "@/config"
 
-import Logo from "@/assets/Logo.png"
-
 type HeaderProps = {
   nav?: boolean
 }
@@ -43,7 +41,7 @@ export default async function Header({ nav = true }: HeaderProps) {
         component={Link}
         href="/"
       >
-        <Image src={Logo} alt="Logo: Jewerly App" />
+        <Image src="/logo.png" width={40} height={40} alt="Logo: Jewerly App" />
 
         <Typography color="rgb(240, 240, 240)" variant="h5" fontWeight="500">
           {APP_NAME}

@@ -97,10 +97,7 @@ export async function getShoppingCart(userID: string | undefined) {
         (product) => product.slug === item.product_slug
       )
 
-      return {
-        ...item,
-        product,
-      }
+      return { ...item, product }
     })
     .filter((item) => item.product?.published)
 

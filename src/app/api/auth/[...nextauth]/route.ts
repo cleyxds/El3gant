@@ -1,8 +1,11 @@
 import NextAuth, { User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider, { GoogleProfile } from "next-auth/providers/google"
 
 import { login } from "@/app/actions/auth"
+import { createUserDetails } from "@/app/actions/user"
+
+import { CredentialsProfile, SocialProfile } from "@/types/auth"
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string
@@ -37,6 +40,38 @@ const handler = NextAuth({
       clientSecret: GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    signIn: async ({ profile, account, user }) => {
+      if (!account) return false
+
+      const provider = account.provider
+
+      let UserDetailsProfile: SocialProfile | null = null
+
+      if (provider === "google") {
+        UserDetailsProfile = profile as Extract<SocialProfile, GoogleProfile>
+      }
+
+      if (provider === "credentials") {
+        const email = user.email!
+
+        const CredentialsProfile = {
+          login: email,
+          name: email,
+          email,
+        } as Extract<SocialProfile, CredentialsProfile>
+
+        UserDetailsProfile = CredentialsProfile
+      }
+
+      if (UserDetailsProfile) {
+        // prettier-ignore
+        return await createUserDetails(provider, UserDetailsProfile).then( () => true)
+      }
+
+      return false
+    },
+  },
 })
 
 export { handler as GET, handler as POST }

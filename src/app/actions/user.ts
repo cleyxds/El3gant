@@ -4,9 +4,19 @@ import { cache } from "react"
 
 import { getServerSession } from "next-auth"
 
-import { collection, query, where, getDocs } from "firebase/firestore"
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore"
 
 import { db } from "@/services/firebase"
+
+import { SocialProfile, UserDetailsGoogleProfile } from "@/types/auth"
 
 const USER_DETAILS_COLLECTION = "user_details"
 
@@ -29,7 +39,65 @@ export const getUserDetails = cache(async (): Promise<User | null> => {
     ...userDetailsRef.data(),
   } as User
 
-  userDetails.avatar_url = session.user?.image!
+  if (!userDetails.avatar_url) {
+    userDetails.avatar_url = session.user?.image!
+  }
 
   return userDetails
 })
+
+export async function createUserDetails(
+  provider: string,
+  profile: SocialProfile
+) {
+  const email = profile.email as string
+  const emailId = email.toLowerCase()
+
+  const userDocRef = doc(db, USER_DETAILS_COLLECTION, emailId)
+
+  const docSnapshot = await getDoc(userDocRef)
+
+  // Guard of the user already exists
+  if (docSnapshot.exists()) return userDocRef.id
+
+  let PROFILE_DATA
+
+  const GOOGLE_PROFILE_DATA: UserDetailsGoogleProfile = {
+    provider,
+    userID: profile.email!,
+    login: profile.email!,
+    avatar_url: profile.picture!,
+    name: profile.name!,
+    email,
+  }
+
+  const EMAIL_PROFILE_DATA = {
+    provider,
+    userID: profile.login,
+    login: profile.login,
+    name: profile.name!,
+    email,
+  }
+
+  // prettier-ignore
+  PROFILE_DATA = provider === "credentials" ? EMAIL_PROFILE_DATA : GOOGLE_PROFILE_DATA
+
+  const now = new Date()
+  const DEFAULT_ACCOUNT_DATA = {
+    admin: false,
+    created_at: now,
+    updated_at: now,
+    deleted_at: null,
+    published_at: now,
+    published: true,
+  }
+
+  const data = {
+    ...DEFAULT_ACCOUNT_DATA,
+    ...PROFILE_DATA,
+  }
+
+  await setDoc(userDocRef, data, { merge: true })
+
+  return userDocRef.id
+}

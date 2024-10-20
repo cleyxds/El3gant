@@ -1,6 +1,7 @@
 type User = {
   docID?: string
   userID: string
+  login: string
   name: string
   email: string
   avatar_url?: string

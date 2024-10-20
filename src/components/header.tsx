@@ -90,7 +90,7 @@ export default async function Header({ nav = true }: HeaderProps) {
               fontSize="1rem"
               color="rgb(240, 240, 240)"
               component={Link}
-              href="catalog"
+              href="explore"
             >
               Catálogo
             </Typography>

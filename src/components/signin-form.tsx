@@ -88,6 +88,8 @@ export default function SignInForm({
         label="Email"
         type="email"
         aria-describedby="email-field"
+        autoComplete="email"
+        autoFocus
         error={Boolean(errors.email)}
         helperText={errors.email?.message}
       />
@@ -99,6 +101,7 @@ export default function SignInForm({
         error={Boolean(errors.password)}
         helperText={errors.password?.message}
         type={pwdvis ? "text" : "password"}
+        autoComplete="current-password"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

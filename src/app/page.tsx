@@ -1,11 +1,11 @@
 import Container from "@mui/material/Container"
 
-import Header from "../components/header"
-import Footer from "../components/footer"
-import GetStartedSection from "../components/sections/get-started"
-import JewelryCard from "../components/jewelry-card"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+import GetStartedSection from "@/components/sections/get-started"
+import JewelryCards from "@/components/jewelry-cards"
 
-import { getHomepageJewelries } from "./actions/jewelry"
+import { getHomepageJewelries } from "@/app/actions/jewelry"
 
 export default async function Home() {
   const jewelries = await getHomepageJewelries()
@@ -16,9 +16,7 @@ export default async function Home() {
 
       <GetStartedSection />
 
-      {jewelries.map((jewelry) => (
-        <JewelryCard key={jewelry.docID} data={jewelry} />
-      ))}
+      <JewelryCards data={jewelries} />
 
       <Footer />
     </Container>

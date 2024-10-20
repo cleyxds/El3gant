@@ -12,30 +12,43 @@ import TextField from "@mui/material/TextField"
 import FormHelperText from "@mui/material/FormHelperText"
 import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
+import Snackbar from "@mui/material/Snackbar"
+
+import { updateUserDetails } from "@/app/actions/user"
 
 import theme from "@/theme"
 
 const AccountSchema = z.object({
-  name: z.string({
-    required_error: "Nome é obrigatório",
-  }),
-  displayName: z.string({
+  name: z
+    .string({
+      required_error: "Nome é obrigatório",
+    })
+    .min(3, "Nome deve ter no mínimo 3 caracteres"),
+  display_name: z.string({
     required_error: "Nome de exibição é obrigatório",
   }),
 })
 
 type AccountSchema = z.infer<typeof AccountSchema>
 
-export default function Account() {
+export default function Account({ user }: { user: User }) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AccountSchema>({
     resolver: zodResolver(AccountSchema),
+    defaultValues: {
+      name: user.name,
+      display_name: user?.display_name || "",
+    },
   })
 
-  const onSubmit = async (data: AccountSchema) => {}
+  const onSubmit = async (data: AccountSchema) => {
+    if (!user.docID) return
+
+    await updateUserDetails(user.docID, data, "/profile")
+  }
 
   return (
     <Stack gap="0.5rem" component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -52,7 +65,7 @@ export default function Account() {
       <Stack gap="2rem">
         <Stack gap="1.5rem">
           <FormInput
-            {...register("name", { required: true })}
+            {...register("name")}
             label="Nome"
             variant="outlined"
             type="text"
@@ -62,12 +75,12 @@ export default function Account() {
 
           <Stack>
             <FormInput
-              {...register("displayName", { required: true })}
+              {...register("display_name")}
               label="Nome de exibição"
               variant="outlined"
               type="text"
-              error={Boolean(errors.displayName)}
-              helperText={errors.displayName?.message}
+              error={Boolean(errors.display_name)}
+              helperText={errors.display_name?.message}
             />
 
             <FormHelperText
@@ -79,6 +92,13 @@ export default function Account() {
               avaliações
             </FormHelperText>
           </Stack>
+
+          <FormInput
+            label="Email"
+            variant="outlined"
+            type="text"
+            value={user.email}
+          />
         </Stack>
 
         <Button
@@ -106,6 +126,13 @@ export default function Account() {
           {isSubmitting ? "Salvando..." : "Salvar alterações"}
         </Button>
       </Stack>
+
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        open={isSubmitSuccessful}
+        autoHideDuration={3000}
+        message="Alterações salvas com sucesso"
+      />
     </Stack>
   )
 }

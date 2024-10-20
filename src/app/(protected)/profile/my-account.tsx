@@ -59,7 +59,7 @@ export default function MyAccount({
     <Stack direction="row" gap="4rem" color="common.white" flex={1}>
       <Account user={user} actions={actions} options={options} />
 
-      <Details selectedOption={actions[0]} />
+      <Details user={user} selectedOption={actions[0]} />
     </Stack>
   )
 }

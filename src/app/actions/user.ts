@@ -2,6 +2,7 @@
 
 import { cache } from "react"
 
+import { revalidatePath } from "next/cache"
 import { getServerSession } from "next-auth"
 
 import {
@@ -12,6 +13,8 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
+  FieldPath,
 } from "firebase/firestore"
 
 import { db } from "@/services/firebase"
@@ -34,9 +37,15 @@ export const getUserDetails = cache(async (): Promise<User | null> => {
 
   const userDetailsRef = querySnapshot.docs[0]
 
+  const data = userDetailsRef.data() as User
+
   const userDetails = {
+    ...data,
     docID: userDetailsRef.id,
-    ...userDetailsRef.data(),
+    created_at: data.created_at?.seconds,
+    updated_at: data.updated_at?.seconds,
+    deleted_at: data.deleted_at?.seconds,
+    published_at: data.published_at?.seconds,
   } as User
 
   if (!userDetails.avatar_url) {
@@ -100,4 +109,20 @@ export async function createUserDetails(
   await setDoc(userDocRef, data, { merge: true })
 
   return userDocRef.id
+}
+
+export async function updateUserDetails(
+  docID: string,
+  data: Partial<User>,
+  revalidate?: string
+) {
+  const userDocRef = doc(db, USER_DETAILS_COLLECTION, docID)
+
+  const user = data as FieldPath
+
+  await updateDoc(userDocRef, user, { merge: true })
+
+  if (revalidate) {
+    revalidatePath(revalidate)
+  }
 }

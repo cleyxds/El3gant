@@ -66,7 +66,8 @@ export default function Account({
 
       <Stack color="common.black" gap="0.5rem" pt="2rem">
         {options.map((option) => {
-          if (option.key === "sign-out") return <Logout user={user} />
+          if (option.key === "sign-out")
+            return <Logout key={option.key} user={user} />
 
           return (
             <Option

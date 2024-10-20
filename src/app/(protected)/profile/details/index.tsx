@@ -19,15 +19,17 @@ const ComponentsMap: Record<
 }
 
 export default function Details({
+  user,
   selectedOption,
 }: {
+  user: User
   selectedOption: string
 }) {
   const Component = ComponentsMap[selectedOption] ?? ComponentsMap["none"]
 
   return (
     <Stack flex={1}>
-      <Component />
+      <Component user={user} />
     </Stack>
   )
 }

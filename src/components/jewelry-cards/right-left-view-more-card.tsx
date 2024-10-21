@@ -1,25 +1,12 @@
-"use client"
+import Link from "next/link"
 
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 
-import Image from "./image"
+import Image from "@/components/image"
 
-import { onAddFromCard } from "@/app/actions/shopping-cart"
-
-type CardType = "LEFT-RIGHT" | "RIGHT-LEFT"
-type JewelryCard = {
-  cardType?: CardType
-  data: Jewelry
-}
-
-export default function JewelryCard({
-  cardType = "LEFT-RIGHT",
-  data,
-}: JewelryCard) {
-  if (cardType !== "LEFT-RIGHT") return null
-
+export default function RightLeftViewMoreCard(data: Jewelry) {
   return (
     <Stack
       id="jewerly"
@@ -29,16 +16,6 @@ export default function JewelryCard({
       gap="4rem"
       padding="7% 4rem"
     >
-      <Image
-        width={412}
-        height={412}
-        src={data.image_url}
-        alt={data.title}
-        sx={{
-          objectFit: "scale-down",
-        }}
-      />
-
       <Stack gap="2rem" width="50%">
         <Typography
           fontFamily="var(--font-noto_serif_jp)"
@@ -60,9 +37,11 @@ export default function JewelryCard({
 
         <Stack direction="row" alignItems="center" gap="2rem">
           <Button
-            onClick={() => onAddFromCard(data)}
+            LinkComponent={Link}
+            href={`/jewelry/${data.slug}`}
             variant="rect"
             sx={{
+              minWidth: "12.5rem",
               fontFamily: "var(--font-poppins)",
               fontWeight: 600,
               fontSize: "1.25rem",
@@ -70,19 +49,18 @@ export default function JewelryCard({
               padding: ".75rem 3%",
             }}
           >
-            Adicionar ao carrinho
+            Ver mais
           </Button>
-
-          <Typography
-            color="#FFFFFF"
-            fontSize="2.25rem"
-            fontWeight="900"
-            fontFamily="var(--font-noto_serif_jp)"
-          >
-            R$ {data.price}
-          </Typography>
         </Stack>
       </Stack>
+
+      <Image
+        width={412}
+        height={412}
+        src={data.image_url}
+        alt={data.title}
+        sx={{ objectFit: "scale-down" }}
+      />
     </Stack>
   )
 }

@@ -2,7 +2,6 @@ import Link from "next/link"
 
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
-import Avatar from "@mui/material/Avatar"
 
 export default function AdminRouteButtons() {
   return (
@@ -10,7 +9,6 @@ export default function AdminRouteButtons() {
       <Button
         LinkComponent={Link}
         href="/admin/products"
-        startIcon={<Avatar>P</Avatar>}
         variant="rect"
         sx={{
           alignSelf: "flex-start",
@@ -24,7 +22,6 @@ export default function AdminRouteButtons() {
       <Button
         LinkComponent={Link}
         href="/admin/inventory"
-        startIcon={<Avatar>I</Avatar>}
         variant="rect"
         sx={{
           alignSelf: "flex-start",

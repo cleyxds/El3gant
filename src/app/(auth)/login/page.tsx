@@ -2,13 +2,10 @@
 
 import Link from "next/link"
 
-import { signIn } from "next-auth/react"
-
 import Container from "@mui/material/Container"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
 
 import Image from "@/components/image"
 import AuthTabs from "./auth-tabs"
@@ -16,7 +13,6 @@ import AuthTabs from "./auth-tabs"
 import { APP_NAME } from "@/config"
 
 import LogoImage from "@/assets/Logo.png"
-import GoogleIcon from "@mui/icons-material/Google"
 
 export default function LoginPage() {
   return (

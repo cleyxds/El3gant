@@ -1,12 +1,14 @@
 import { SVGProps } from "react"
 
 import Link from "next/link"
-import Image, { StaticImageData } from "next/image"
+import { StaticImageData } from "next/image"
 
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import IconButton from "@mui/material/IconButton"
+
+import Image from "@/components/image"
 
 import TikTokLogo from "../assets/icons/tiktok"
 import InstagramLogo from "../assets/icons/instagram"
@@ -99,7 +101,7 @@ export default function JewelryShowcase({ showcaseUrl }: JewelryShowcaseProps) {
     <Box position="absolute" right="calc(4rem * 2)" top="12%" zIndex={1}>
       <Socials />
 
-      <Image src={showcaseUrl} alt="Jewelry: Showcase" />
+      <Image priority src={showcaseUrl} alt="Jewelry: Showcase" />
 
       <Explore />
     </Box>

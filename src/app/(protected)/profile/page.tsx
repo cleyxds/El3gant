@@ -3,20 +3,24 @@ import Link from "next/link"
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
-import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 
 import Header from "@/components/header"
-import Logout from "@/components/logout"
-import AdminRouteButtons from "@/components/admin-route-buttons"
 
-import { isAuthenticated, validateAdminRole } from "@/app/actions/auth"
+import MyAccount from "./my-account"
+
 import { getUserDetails } from "@/app/actions/user"
+import { validateAdminRole } from "@/app/actions/auth"
+import { getAddresses } from "@/app/actions/address"
 
 export default async function ProfilePage() {
-  const authenticated = await isAuthenticated()
   const user = await getUserDetails()
   const admin = await validateAdminRole(user)
+  const addresses = await getAddresses(user?.userID)
+
+  if (user) {
+    user.addresses = addresses
+  }
 
   return (
     <Container>
@@ -50,25 +54,20 @@ export default async function ProfilePage() {
           <Typography>Perfil</Typography>
         </Breadcrumbs>
 
-        <Typography variant="h3" color="white">
-          Olá {user?.name} 😎👍🏾
-        </Typography>
+        <Stack px="10rem">
+          <Stack alignItems="center">
+            <Typography
+              lineHeight="6.8125rem"
+              fontSize="3.375rem"
+              fontFamily="var(--font-poppins)"
+              color="common.white"
+            >
+              Minha conta
+            </Typography>
+          </Stack>
 
-        <Button
-          variant="rect"
-          LinkComponent={Link}
-          href="cart"
-          sx={{
-            alignSelf: "flex-start",
-            fontFamily: "var(--font-poppins)",
-            fontWeight: 300,
-          }}
-        >
-          Seu carrinho de compras
-        </Button>
-
-        {admin && <AdminRouteButtons />}
-        {authenticated && <Logout />}
+          <MyAccount user={user!} admin={admin!} />
+        </Stack>
       </Stack>
     </Container>
   )

@@ -88,6 +88,8 @@ export async function getShoppingCart(userID: string | undefined) {
     ...doc.data(),
   })) as ShoppingCart[]
 
+  if (!shoppingCart.length) return []
+
   const productSlugs = shoppingCart.map((item) => item.product_slug)
   const products = await getProductsBySlugs(productSlugs)
 

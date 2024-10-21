@@ -103,6 +103,8 @@ export default function LogInForm({
         {...register("email", { required: true })}
         label="Email"
         type="email"
+        autoComplete="email"
+        autoFocus
         aria-describedby="email-field"
         error={Boolean(errors.email)}
         helperText={errors.email?.message}
@@ -115,6 +117,7 @@ export default function LogInForm({
         error={Boolean(errors.password)}
         helperText={errors.password?.message}
         type={pwdvis ? "text" : "password"}
+        autoComplete="current-password"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

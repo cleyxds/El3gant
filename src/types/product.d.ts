@@ -14,7 +14,10 @@ type Product = {
   published_by?: string
   created_at?: FirebaseTimestamp
   created_by?: string
-  layout: string
+  layout: Layout
+  sizes?: Sizes[]
+  size?: string
+  stamp?: boolean
 }
 
 type Jewelry = Product
@@ -23,3 +26,16 @@ type PublishProductProps = {
   productID: string
   published: boolean
 }
+
+type ProductSizeTypes = "button" | "icon"
+type Sizes = {
+  name: string
+  type: ProductSizeTypes
+}
+
+type Layout =
+  | "RIGHT-LEFT"
+  | "LEFT-RIGHT-VIEW-MORE"
+  | "RIGHT-LEFT-VIEW-MORE"
+  | "MULTIPLE-OPTION"
+  | "OUR-STORY"

@@ -26,7 +26,7 @@ const FOOTER_SECTIONS: FooterSectionProps[] = [
       { name: "Política de envio", url: "/shipping-policy" },
       { name: "Termos de uso", url: "/terms-of-use" },
       { name: "Privacidade", url: "/privacy-policy" },
-      { name: "Parcerias", url: "/partnerships" },
+      // { name: "Parcerias", url: "/partnerships" },
     ],
   },
   {
@@ -35,7 +35,7 @@ const FOOTER_SECTIONS: FooterSectionProps[] = [
       { name: "WhatsApp", url: "https://wa.me", target: "_blank" },
       {
         disabled: true,
-        name: "Você encontrará o próximo valor de marketing de sua preferência.",
+        name: "Você entrará em contato com a nossa equipe.",
         url: "/",
       },
     ],
@@ -59,7 +59,7 @@ export default function Footer() {
           {section?.links?.map((link) => {
             const { disabled, name, ...rest } = link
 
-            let customprops: TypographyProps<"a"> = { width: "43%" }
+            let customprops: TypographyProps<"a"> = { width: "50%" }
 
             if (!disabled) {
               customprops = { component: Link, href: link.url! }

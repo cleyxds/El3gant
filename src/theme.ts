@@ -71,6 +71,9 @@ const theme = createTheme({
   },
   components: {
     MuiContainer: {
+      defaultProps: {
+        component: "main",
+      },
       styleOverrides: {
         root: screen,
       },

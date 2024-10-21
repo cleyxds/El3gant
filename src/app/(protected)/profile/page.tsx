@@ -11,10 +11,16 @@ import MyAccount from "./my-account"
 
 import { getUserDetails } from "@/app/actions/user"
 import { validateAdminRole } from "@/app/actions/auth"
+import { getAddresses } from "@/app/actions/address"
 
 export default async function ProfilePage() {
   const user = await getUserDetails()
   const admin = await validateAdminRole(user)
+  const addresses = await getAddresses(user?.userID)
+
+  if (user) {
+    user.addresses = addresses
+  }
 
   return (
     <Container>

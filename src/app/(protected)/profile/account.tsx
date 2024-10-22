@@ -1,17 +1,13 @@
 "use client"
 
-import { alpha, styled } from "@mui/material"
+import { styled } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import Stack from "@mui/material/Stack"
-import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
-import IconButton from "@mui/material/IconButton"
 
+import AccountImageForm from "./account-image-form"
 import { Option as OptionType } from "./my-account"
 
-import CameraAlt from "@mui/icons-material/CameraAlt"
-
-import theme from "@/theme"
 import Logout from "@/components/logout"
 
 export default function Account({
@@ -28,30 +24,7 @@ export default function Account({
   return (
     <Stack bgcolor="#F3F5F7" width="16.375rem" px="1rem" py="1.5rem">
       <Stack gap="0.5rem" justifyContent="center" alignItems="center">
-        <Stack position="relative">
-          <Avatar
-            src={user.avatar_url}
-            sx={{ width: "5rem", height: "5rem" }}
-          />
-
-          <IconButton
-            sx={{
-              width: "1.875rem",
-              height: "1.875rem",
-              position: "absolute",
-              bottom: "0%",
-              right: "0%",
-              color: "common.white",
-              bgcolor: "common.black",
-
-              "&:hover": {
-                bgcolor: alpha(theme.palette.common.black, 0.7),
-              },
-            }}
-          >
-            <CameraAlt fontSize="small" color="inherit" />
-          </IconButton>
-        </Stack>
+        <AccountImageForm user={user} />
 
         <Typography
           fontSize="1.25rem"

@@ -72,7 +72,7 @@ export default function Account({ user }: { user: User }) {
   }
 
   return (
-    <Stack gap="0.5rem" component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Stack gap="1.5rem" component="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography
         color="common.white"
         fontSize="1.25rem"

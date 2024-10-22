@@ -10,4 +10,6 @@ type Address = {
   type: "billing" | "shipping"
   owner_name: string
   owner_phone: string
+  created_at?: FirebaseTimestamp
+  updated_at?: FirebaseTimestamp
 }

@@ -19,6 +19,7 @@ import Box from "@mui/material/Box"
 
 import DefaultFormInput from "@/components/form-input"
 
+import { zipCodeMask } from "@/lib/masks"
 import { createAddress, updateAddress } from "@/app/actions/address"
 
 import theme from "@/theme"
@@ -271,6 +272,21 @@ function CreateAddressModal({
     }
   }, [editing])
 
+  const handleZipCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let input = event.target
+    const length = input.value.length
+
+    if (length > 9) {
+      input.value = input.value.slice(0, 9)
+    }
+
+    const zipCode = zipCodeMask(input.value)
+
+    input.value = zipCode
+
+    setValue("zip_code", zipCode)
+  }
+
   const onSubmit = async ({ editing, ...data }: CreateAddress) => {
     try {
       const address: Address = {
@@ -386,6 +402,7 @@ function CreateAddressModal({
             <Stack direction="row" alignItems="center" gap="1.5rem">
               <FormInput
                 {...register("zip_code")}
+                onChange={handleZipCodeChange}
                 label="CEP"
                 type="text"
                 error={Boolean(errors.zip_code)}

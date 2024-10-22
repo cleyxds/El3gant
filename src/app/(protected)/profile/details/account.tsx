@@ -15,6 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import Snackbar from "@mui/material/Snackbar"
 
 import { updateUserDetails } from "@/app/actions/user"
+import { phoneMask } from "@/lib/masks"
 
 import theme from "@/theme"
 
@@ -27,6 +28,9 @@ const AccountSchema = z.object({
   display_name: z.string({
     required_error: "Nome de exibição é obrigatório",
   }),
+  phone: z.string({
+    required_error: "Número de telefone é obrigatório",
+  }),
 })
 
 type AccountSchema = z.infer<typeof AccountSchema>
@@ -35,14 +39,31 @@ export default function Account({ user }: { user: User }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AccountSchema>({
     resolver: zodResolver(AccountSchema),
     defaultValues: {
       name: user.name,
-      display_name: user?.display_name || "",
+      display_name: user?.display_name,
+      phone: user?.phone,
     },
   })
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let input = event.target
+    const length = input.value.length
+
+    if (length > 15) {
+      input.value = input.value.slice(0, 15)
+    }
+
+    const phoneNumber = phoneMask(input.value)
+
+    input.value = phoneNumber
+
+    setValue("phone", phoneNumber)
+  }
 
   const onSubmit = async (data: AccountSchema) => {
     if (!user.docID) return
@@ -51,7 +72,7 @@ export default function Account({ user }: { user: User }) {
   }
 
   return (
-    <Stack gap="0.5rem" component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Stack gap="1.5rem" component="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography
         color="common.white"
         fontSize="1.25rem"
@@ -94,10 +115,25 @@ export default function Account({ user }: { user: User }) {
           </Stack>
 
           <FormInput
+            {...register("phone")}
+            onChange={handlePhoneChange}
+            placeholder="(00) 00000-0000"
+            label="Contato"
+            variant="outlined"
+            type="tel"
+            error={Boolean(errors.phone)}
+            helperText={errors.phone?.message}
+          />
+
+          <FormInput
             label="Email"
             variant="outlined"
             type="text"
             value={user.email}
+            aria-readonly
+            InputProps={{
+              readOnly: true,
+            }}
           />
         </Stack>
 

@@ -3,6 +3,7 @@
 import { cache } from "react"
 
 import { revalidatePath } from "next/cache"
+
 import { getServerSession } from "next-auth"
 
 import {
@@ -15,6 +16,7 @@ import {
   setDoc,
   updateDoc,
   FieldPath,
+  Timestamp,
 } from "firebase/firestore"
 
 import { db } from "@/services/firebase"
@@ -118,7 +120,10 @@ export async function updateUserDetails(
 ) {
   const userDocRef = doc(db, USER_DETAILS_COLLECTION, docID)
 
-  const user = data as FieldPath
+  const user = data as Partial<User> & FieldPath
+
+  const now = Timestamp.now()
+  user.updated_at = now
 
   await updateDoc(userDocRef, user, { merge: true })
 

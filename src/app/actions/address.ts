@@ -11,6 +11,7 @@ import {
   FieldPath,
   getDocs,
   query,
+  Timestamp,
   updateDoc,
   where,
 } from "firebase/firestore"
@@ -24,10 +25,15 @@ export async function getAddresses(userID: string | undefined) {
   const q = query(collectionRef, where("userID", "==", userID))
   const snapshot = await getDocs(q)
 
-  const addresses = snapshot.docs.map((doc) => ({
-    docID: doc.id,
-    ...doc.data(),
-  })) as Address[]
+  const addresses = snapshot.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      ...data,
+      docID: doc.id,
+      created_at: data?.created_at?.seconds,
+      updated_at: data?.updated_at?.seconds,
+    }
+  }) as Address[]
 
   if (!addresses.length) return []
 
@@ -36,6 +42,9 @@ export async function getAddresses(userID: string | undefined) {
 
 export async function createAddress(address: Address, revalidate?: string) {
   const collectionRef = collection(db, ADDRESS_COLLECTION)
+
+  const now = Timestamp.now()
+  address.created_at = now
 
   const docRef = await addDoc(collectionRef, address)
 
@@ -53,7 +62,10 @@ export async function updateAddress(
 ) {
   const userDocRef = doc(db, ADDRESS_COLLECTION, docID)
 
-  const address = data as FieldPath
+  const address = data as Partial<Address> & FieldPath
+
+  const now = Timestamp.now()
+  address.updated_at = now
 
   await updateDoc(userDocRef, address, { merge: true })
 

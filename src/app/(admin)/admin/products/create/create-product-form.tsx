@@ -135,7 +135,9 @@ export default function CreateProductForm() {
     data.categories = []
 
     if (data.image_file && data.slug) {
-      data.image_url = await uploadToStorage(data.image_file as File, data.slug)
+      const path = `products/${data.slug}`
+
+      data.image_url = await uploadToStorage(data.image_file as File, path)
     }
 
     data.image_file = null

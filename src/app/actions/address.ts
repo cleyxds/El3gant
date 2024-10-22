@@ -25,10 +25,15 @@ export async function getAddresses(userID: string | undefined) {
   const q = query(collectionRef, where("userID", "==", userID))
   const snapshot = await getDocs(q)
 
-  const addresses = snapshot.docs.map((doc) => ({
-    docID: doc.id,
-    ...doc.data(),
-  })) as Address[]
+  const addresses = snapshot.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      ...data,
+      docID: doc.id,
+      created_at: data?.created_at?.seconds,
+      updated_at: data?.updated_at?.seconds,
+    }
+  }) as Address[]
 
   if (!addresses.length) return []
 

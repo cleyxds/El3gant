@@ -80,7 +80,9 @@ export async function getProducts(createdBy: string | undefined) {
     }
   })
 
-  return products as unknown as Product[]
+  if (!products.length) return []
+
+  return products as Product[]
 }
 
 export async function getProductsBySlugs(slugs: string[]) {

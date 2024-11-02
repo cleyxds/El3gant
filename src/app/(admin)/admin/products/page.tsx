@@ -70,7 +70,12 @@ export default async function AdminProductsPage() {
 
       <Stack alignItems="flex-start" gap="2rem">
         <Stack gap="2rem">
-          <Typography variant="h4" color="#FFFFFF">
+          <Typography
+            fontSize="2.125rem"
+            lineHeight="1.235"
+            fontWeight="400"
+            color="common.white"
+          >
             Gerencie os produtos
           </Typography>
 
@@ -89,11 +94,11 @@ export default async function AdminProductsPage() {
 
           <Stack gap="1rem">
             <Stack gap="1rem" direction="row" alignItems="center">
-              <Typography variant="h6" color="#FFFFFF">
+              <Typography variant="h6" color="common.white">
                 <Typography
                   component="span"
                   variant="h6"
-                  color="#FFFFFF"
+                  color="common.white"
                   fontFamily="var(--font-poppins)"
                   fontWeight="700"
                 >

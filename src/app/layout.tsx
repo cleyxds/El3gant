@@ -11,7 +11,8 @@ import Copyright from "@/components/sections/copyright"
 import Promotion from "@/components/promotion"
 
 import { APP_NAME } from "@/config"
-import theme, { fontVariants } from "../theme"
+import theme from "../theme"
+import fonts from "../fonts"
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={fontVariants}>
+    <html lang="en" className={fonts}>
       <body>
         <AppRouterCacheProvider>
           <ReactQueryProvider>

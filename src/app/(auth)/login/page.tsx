@@ -30,7 +30,12 @@ export default function LoginPage() {
         >
           <Image src={LogoImage} alt="Logo" width={48} height={48} />
 
-          <Typography color="rgb(240, 240, 240)" variant="h5" fontWeight="500">
+          <Typography
+            color="rgb(240, 240, 240)"
+            fontFamily="var(--font-poppins)"
+            variant="h5"
+            fontWeight="500"
+          >
             {APP_NAME}
           </Typography>
         </Stack>

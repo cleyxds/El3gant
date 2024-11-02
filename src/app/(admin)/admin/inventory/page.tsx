@@ -71,16 +71,28 @@ export default async function AdminInventoryPage() {
 
       <Stack alignItems="flex-start" gap="2rem">
         <Stack>
-          <Typography variant="h4" color="#FFFFFF">
+          <Typography
+            fontSize="2.125rem"
+            lineHeight="1.235"
+            component="h4"
+            fontFamily="var(--font-poppins)"
+            color="common.white"
+          >
             Visualize o inventário
           </Typography>
 
-          <Typography variant="h6" color="#FFFFFF">
+          <Typography
+            component="h6"
+            fontSize="1.25rem"
+            color="common.white"
+            fontFamily="var(--font-poppins)"
+            fontWeight="400"
+          >
             Total de{" "}
             <Typography
               component="span"
-              variant="h6"
-              color="#FFFFFF"
+              fontSize="1.25rem"
+              color="common.white"
               fontFamily="var(--font-poppins)"
               fontWeight="700"
             >

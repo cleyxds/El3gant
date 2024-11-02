@@ -8,8 +8,6 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import Typography from "@mui/material/Typography"
-import Stack from "@mui/material/Stack"
-import Divider from "@mui/material/Divider"
 
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
@@ -21,7 +19,7 @@ export default async function OrdersHistoryTable({ user }: { user: User }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="leaderboard-table">
+      <Table aria-label="orders-table">
         <TableHead>
           <TableRow>
             <TableCell>
@@ -80,83 +78,79 @@ export default async function OrdersHistoryTable({ user }: { user: User }) {
             const js_placed_at = placed_at_NUMBER * 1000
 
             return (
-              <Stack>
-                <TableRow
-                  key={row.docID}
+              <TableRow
+                key={row.docID}
+                sx={{
+                  "&:last-child td, &:last-child th": {
+                    border: 0,
+                  },
+                }}
+              >
+                <TableCell component="th" scope="row">
+                  <Link href={`/tracking/order/${row.orderID}`}>
+                    <Typography
+                      fontFamily="var(--font-inter)"
+                      fontSize=".875rem"
+                      fontWeight="400"
+                      lineHeight="1.375rem"
+                      color="#141718"
+                      sx={{
+                        textDecoration: "underline",
+                      }}
+                    >
+                      #{row.orderID}
+                    </Typography>
+                  </Link>
+                </TableCell>
+
+                <TableCell>
+                  <Typography
+                    fontFamily="var(--font-inter)"
+                    fontSize=".875rem"
+                    fontWeight="400"
+                    lineHeight="1.375rem"
+                    color="#141718"
+                  >
+                    {format(js_placed_at, "MMMM dd, yyyy", {
+                      locale: ptBR,
+                    })}
+                  </Typography>
+                </TableCell>
+
+                <TableCell
                   sx={{
-                    "&:last-child td, &:last-child th": {
-                      border: 0,
+                    textAlign: {
+                      xs: "center",
+                      lg: "left",
                     },
                   }}
                 >
-                  <TableCell component="th" scope="row">
-                    <Link href={`/tracking/order/${row.orderID}`}>
-                      <Typography
-                        fontFamily="var(--font-inter)"
-                        fontSize=".875rem"
-                        fontWeight="400"
-                        lineHeight="1.375rem"
-                        color="#141718"
-                        sx={{
-                          textDecoration: "underline",
-                        }}
-                      >
-                        #{row.orderID}
-                      </Typography>
-                    </Link>
-                  </TableCell>
-
-                  <TableCell>
-                    <Typography
-                      fontFamily="var(--font-inter)"
-                      fontSize=".875rem"
-                      fontWeight="400"
-                      lineHeight="1.375rem"
-                      color="#141718"
-                    >
-                      {format(js_placed_at, "MMMM dd, yyyy", {
-                        locale: ptBR,
-                      })}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell
-                    sx={{
-                      textAlign: {
-                        xs: "center",
-                        lg: "left",
-                      },
-                    }}
+                  <Typography
+                    fontFamily="var(--font-inter)"
+                    fontSize=".875rem"
+                    fontWeight="400"
+                    lineHeight="1.375rem"
+                    color="#141718"
                   >
-                    <Typography
-                      fontFamily="var(--font-inter)"
-                      fontSize=".875rem"
-                      fontWeight="400"
-                      lineHeight="1.375rem"
-                      color="#141718"
-                    >
-                      {row.status}
-                    </Typography>
-                  </TableCell>
+                    {row.status}
+                  </Typography>
+                </TableCell>
 
-                  <TableCell>
-                    <Typography
-                      fontFamily="var(--font-inter)"
-                      fontSize=".875rem"
-                      fontWeight="400"
-                      lineHeight="1.375rem"
-                      color="#141718"
-                    >
-                      {new Intl.NumberFormat("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      }).format(row.price)}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-
-                <Divider />
-              </Stack>
+                <TableCell>
+                  <Typography
+                    fontFamily="var(--font-inter)"
+                    fontSize=".875rem"
+                    fontWeight="400"
+                    lineHeight="1.375rem"
+                    color="#141718"
+                  >
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(row.price)}
+                  </Typography>
+                </TableCell>
+              </TableRow>
             )
           })}
         </TableBody>

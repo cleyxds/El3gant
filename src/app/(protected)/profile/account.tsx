@@ -22,7 +22,15 @@ export default function Account({
   const [selectedOption, selectOption] = actions
 
   return (
-    <Stack bgcolor="#F3F5F7" width="16.375rem" px="1rem" py="1.5rem">
+    <Stack
+      bgcolor="#F3F5F7"
+      width="16.375rem"
+      px="1rem"
+      py="1.5rem"
+      height="fit-content"
+      position="sticky"
+      top="calc(4.5rem + 1rem)"
+    >
       <Stack gap="0.5rem" justifyContent="center" alignItems="center">
         <AccountImageForm user={user} />
 

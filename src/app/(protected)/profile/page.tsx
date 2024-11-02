@@ -24,7 +24,7 @@ export default async function ProfilePage() {
 
   return (
     <Container>
-      <Header nav={false} />
+      <Header type="cart" />
 
       <Stack gap="1rem">
         <Breadcrumbs

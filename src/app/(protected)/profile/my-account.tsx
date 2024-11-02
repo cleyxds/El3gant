@@ -56,7 +56,7 @@ export default function MyAccount({
   )
 
   return (
-    <Stack direction="row" gap="4rem" color="common.white" flex={1}>
+    <Stack direction="row" gap="4rem" color="common.white" flex={1} pb="1.5rem">
       <Account user={user} actions={actions} options={options} />
 
       <Details user={user} selectedOption={actions[0]} />
